@@ -2,7 +2,9 @@
 <html lang="ru">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link id="app-favicon" rel="icon" type="image/svg+xml" href="/favicon-dark.svg" />
+    <link id="app-touch-icon" rel="apple-touch-icon" href="/app-icon-dark.png" />
+    <meta id="app-theme-color" name="theme-color" content="#0D3D2E" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -27,6 +29,28 @@
                 : 'dark'
           document.documentElement.setAttribute('data-theme', theme)
           document.documentElement.style.colorScheme = theme
+
+          var favicon = document.getElementById('app-favicon')
+          var touch = document.getElementById('app-touch-icon')
+          var themeColor = document.getElementById('app-theme-color')
+          if (favicon) {
+            favicon.setAttribute(
+              'href',
+              theme === 'light' ? '/favicon-light.svg' : '/favicon-dark.svg',
+            )
+          }
+          if (touch) {
+            touch.setAttribute(
+              'href',
+              theme === 'light' ? '/app-icon-light.png' : '/app-icon-dark.png',
+            )
+          }
+          if (themeColor) {
+            themeColor.setAttribute(
+              'content',
+              theme === 'light' ? '#2EE6A6' : '#0D3D2E',
+            )
+          }
 
           var locale = localStorage.getItem('fitnes-locale')
           document.documentElement.lang =

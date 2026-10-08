@@ -1,6 +1,7 @@
 import * as React from "react";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
-import { Navigation, Menu, Moon, Sun } from "lucide-react";
+import { Menu, Moon, Sun } from "lucide-react";
+import { FitnesIcon } from "@/shared/brand/FitnesIcon";
 import { cn } from "@/shared/lib/utils";
 import { LanguageToggle } from "@/shared/i18n/LanguageToggle";
 import { useLocale } from "@/shared/i18n/LocaleContext";
@@ -152,7 +153,7 @@ export function AnimatedNav({
           variants={logoVariants}
           className="flex flex-shrink-0 items-center pr-2 pl-4 font-semibold"
         >
-          <Navigation className="h-6 w-6" />
+          <FitnesIcon className="size-8 rounded-full" />
         </motion.div>
 
         <motion.div

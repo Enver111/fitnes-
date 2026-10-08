@@ -1,7 +1,10 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { useEffect, useId, useState } from 'react'
 import { createPortal } from 'react-dom'
+import { useNavigate } from 'react-router-dom'
 import { useAuthModal } from '../../auth/AuthModalContext'
+
+const AUTH_STORAGE_KEY = 'fitnes-user'
 
 function GoogleIcon() {
   return (
@@ -34,17 +37,22 @@ function GitHubIcon() {
   )
 }
 
+function isValidEmail(value) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim())
+}
+
 export default function AuthModal() {
   const { open, mode, setMode, closeAuth } = useAuthModal()
-  const [email, setEmail] = useState('')
-  const [sent, setSent] = useState(false)
+  const navigate = useNavigate()
+  const [email, setEmail] = useState('demo@fitnes.app')
+  const [error, setError] = useState('')
   const titleId = useId()
   const isLogin = mode === 'login'
 
   useEffect(() => {
     if (!open) {
-      setEmail('')
-      setSent(false)
+      setEmail('demo@fitnes.app')
+      setError('')
       return undefined
     }
 
@@ -60,10 +68,28 @@ export default function AuthModal() {
     }
   }, [open, closeAuth])
 
+  function enterApp(nextEmail) {
+    localStorage.setItem(
+      AUTH_STORAGE_KEY,
+      JSON.stringify({ email: nextEmail, signedInAt: Date.now() }),
+    )
+    closeAuth()
+    navigate('/app')
+  }
+
   function handleSubmit(e) {
     e.preventDefault()
-    if (!email.trim()) return
-    setSent(true)
+    const value = email.trim()
+    if (!value) {
+      setError('Введите email')
+      return
+    }
+    if (!isValidEmail(value)) {
+      setError('Введите корректный email')
+      return
+    }
+    setError('')
+    enterApp(value)
   }
 
   if (typeof document === 'undefined') return null
@@ -72,7 +98,7 @@ export default function AuthModal() {
     <AnimatePresence>
       {open && (
         <motion.div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          className="fixed inset-0 z-[110] flex items-center justify-center p-4"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -99,7 +125,7 @@ export default function AuthModal() {
               type="button"
               onClick={closeAuth}
               aria-label="Закрыть модалку"
-              className="absolute right-4 top-4 flex size-8 items-center justify-center rounded-lg text-[var(--auth-muted)] transition hover:bg-[var(--auth-btn)] hover:text-[var(--auth-text)]"
+              className="absolute top-4 right-4 flex size-8 items-center justify-center rounded-lg text-[var(--auth-muted)] transition hover:bg-[var(--auth-btn)] hover:text-[var(--auth-text)]"
             >
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
                 <path
@@ -116,98 +142,90 @@ export default function AuthModal() {
                 id={titleId}
                 className="text-[1.65rem] font-semibold tracking-tight text-[var(--auth-text)]"
               >
-                {isLogin ? 'Welcome back' : 'Create account'}
+                {isLogin ? 'С возвращением' : 'Создать аккаунт'}
               </h2>
               <p className="mt-2 text-sm text-[var(--auth-muted)]">
                 {isLogin
-                  ? 'Choose your preferred sign in method'
-                  : 'Choose your preferred sign up method'}
+                  ? 'Выберите удобный способ входа'
+                  : 'Выберите удобный способ регистрации'}
               </p>
             </div>
 
             <div className="mt-7 space-y-3">
               <button
                 type="button"
+                onClick={() => enterApp('google@fitnes.app')}
                 className="flex w-full items-center justify-center gap-3 rounded-lg border border-[var(--auth-border)] bg-[var(--auth-btn)] px-4 py-3 text-sm font-medium text-[var(--auth-text)] transition hover:bg-[var(--auth-btn-hover)]"
               >
                 <GoogleIcon />
-                Continue with Google
+                Продолжить через Google
               </button>
               <button
                 type="button"
+                onClick={() => enterApp('github@fitnes.app')}
                 className="flex w-full items-center justify-center gap-3 rounded-lg border border-[var(--auth-border)] bg-[var(--auth-btn)] px-4 py-3 text-sm font-medium text-[var(--auth-text)] transition hover:bg-[var(--auth-btn-hover)]"
               >
                 <GitHubIcon />
-                Continue with GitHub
+                Продолжить через GitHub
               </button>
             </div>
 
             <div className="my-6 flex items-center gap-3">
               <div className="h-px flex-1 bg-[var(--auth-border)]" />
               <span className="shrink-0 text-[10px] font-medium tracking-[0.12em] text-[var(--auth-muted)]">
-                OR CONTINUE WITH EMAIL
+                ИЛИ ЧЕРЕЗ EMAIL
               </span>
               <div className="h-px flex-1 bg-[var(--auth-border)]" />
             </div>
 
-            {sent ? (
-              <div className="rounded-lg border border-[var(--auth-border)] bg-[var(--auth-input)] px-4 py-5 text-center">
-                <p className="text-sm font-medium text-[var(--auth-text)]">
-                  Check your email
+            <form onSubmit={handleSubmit} className="space-y-3" noValidate>
+              <label className="block">
+                <span className="mb-2 block text-sm font-medium text-[var(--auth-text)]">
+                  Электронная почта
+                </span>
+                <input
+                  type="email"
+                  required
+                  autoComplete="email"
+                  value={email}
+                  onChange={(e) => {
+                    setEmail(e.target.value)
+                    if (error) setError('')
+                  }}
+                  placeholder="Введите ваш email"
+                  className="w-full rounded-lg border border-[var(--auth-border)] bg-[var(--auth-input)] px-3.5 py-3 text-sm text-[var(--auth-text)] outline-none transition placeholder:text-[var(--auth-muted)] focus:border-[var(--auth-focus)]"
+                />
+              </label>
+              {error ? (
+                <p className="text-xs text-[var(--destructive)]" role="alert">
+                  {error}
                 </p>
-                <p className="mt-2 text-sm text-[var(--auth-muted)]">
-                  We sent a magic link to <span className="text-[var(--auth-text)]">{email}</span>
-                </p>
-                <button
-                  type="button"
-                  onClick={() => setSent(false)}
-                  className="mt-4 text-sm text-[var(--auth-muted)] underline underline-offset-2 hover:text-[var(--auth-text)]"
-                >
-                  Use a different email
-                </button>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-3">
-                <label className="block">
-                  <span className="mb-2 block text-sm font-medium text-[var(--auth-text)]">
-                    Email address
-                  </span>
-                  <input
-                    type="email"
-                    required
-                    autoComplete="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Enter your email"
-                    className="w-full rounded-lg border border-[var(--auth-border)] bg-[var(--auth-input)] px-3.5 py-3 text-sm text-[var(--auth-text)] outline-none transition placeholder:text-[var(--auth-muted)] focus:border-[var(--auth-focus)]"
-                  />
-                </label>
-                <button
-                  type="submit"
-                  className="w-full rounded-lg bg-[var(--auth-primary)] py-3 text-sm font-semibold text-[var(--auth-primary-text)] transition hover:opacity-90"
-                >
-                  Send Magic Link
-                </button>
-                <p className="text-center text-xs text-[var(--auth-muted)]">
-                  We&apos;ll send you a magic link to your email
-                </p>
-              </form>
-            )}
+              ) : null}
+              <button
+                type="submit"
+                className="w-full rounded-lg bg-[var(--auth-primary)] py-3 text-sm font-semibold text-[var(--auth-primary-text)] transition hover:opacity-90"
+              >
+                {isLogin ? 'Войти' : 'Зарегистрироваться'}
+              </button>
+              <p className="text-center text-xs text-[var(--auth-muted)]">
+                Введите email и нажмите кнопку, чтобы открыть приложение
+              </p>
+            </form>
 
             <p className="mt-7 text-center text-xs leading-relaxed text-[var(--auth-muted)]">
-              By continuing, you agree to our{' '}
+              Продолжая, вы соглашаетесь с{' '}
               <a
                 href="#terms"
                 className="text-[var(--auth-text)] underline underline-offset-2"
               >
-                Terms of Service
+                Условиями использования
               </a>{' '}
-              and{' '}
+              и{' '}
               <a
                 href="#privacy"
                 className="text-[var(--auth-text)] underline underline-offset-2"
               >
-                Privacy Policy
+                Политикой конфиденциальности
               </a>
               .
             </p>
@@ -215,30 +233,30 @@ export default function AuthModal() {
             <p className="mt-5 text-center text-sm text-[var(--auth-muted)]">
               {isLogin ? (
                 <>
-                  Don&apos;t have an account?{' '}
+                  Нет аккаунта?{' '}
                   <button
                     type="button"
                     onClick={() => {
                       setMode('register')
-                      setSent(false)
+                      setError('')
                     }}
                     className="font-medium text-[var(--auth-text)] underline underline-offset-2"
                   >
-                    Sign up
+                    Зарегистрироваться
                   </button>
                 </>
               ) : (
                 <>
-                  Already have an account?{' '}
+                  Уже есть аккаунт?{' '}
                   <button
                     type="button"
                     onClick={() => {
                       setMode('login')
-                      setSent(false)
+                      setError('')
                     }}
                     className="font-medium text-[var(--auth-text)] underline underline-offset-2"
                   >
-                    Sign in
+                    Войти
                   </button>
                 </>
               )}

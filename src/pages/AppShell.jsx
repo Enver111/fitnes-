@@ -29,10 +29,19 @@ const workouts = [
   { day: 'Пт', focus: 'Сила ног/спины · выпады, тяга с рюкзаком' },
 ]
 
+function getStoredEmail() {
+  try {
+    return JSON.parse(localStorage.getItem('fitnes-user') || '{}').email || 'Демо-профиль'
+  } catch {
+    return 'Демо-профиль'
+  }
+}
+
 export default function AppShell() {
   const [tab, setTab] = useState('chat')
   const [input, setInput] = useState('')
   const [messages, setMessages] = useState(mockMessages)
+  const [userEmail] = useState(getStoredEmail)
 
   function sendMessage(e) {
     e.preventDefault()
@@ -57,7 +66,7 @@ export default function AppShell() {
         </Link>
         <div className="flex items-center gap-3 text-sm">
           <ThemeToggle />
-          <span className="hidden text-fog sm:inline">Демо-профиль</span>
+          <span className="hidden truncate text-fog sm:inline">{userEmail}</span>
           <Link to="/login" className="text-fog hover:text-mist">
             Выйти
           </Link>

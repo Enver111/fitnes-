@@ -1,4 +1,4 @@
-export type AppTab = "chat" | "nutrition" | "workouts";
+export type AppTab = "chat" | "nutrition" | "workouts" | "profile";
 
 export type ChatRole = "user" | "ai";
 

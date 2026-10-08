@@ -1,5 +1,7 @@
 import { useEffect, useState, type FormEvent } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { Apple, Dumbbell, LogOut, MessageCircle, User } from "lucide-react";
+import { NavBar } from "@/components/ui/tubelight-navbar";
 import { useAuthSession } from "@/features/auth/context/AuthSessionContext";
 import { LanguageToggle } from "@/shared/i18n/LanguageToggle";
 import { useLocale } from "@/shared/i18n/LocaleContext";
@@ -15,6 +17,16 @@ export function AppShellPage() {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const userEmail = user?.email ?? t("app.demoProfile");
 
+  const navItems = [
+    { id: "chat" as const, name: t("app.tabChat"), url: "#chat", icon: MessageCircle },
+    { id: "nutrition" as const, name: t("app.tabNutrition"), url: "#nutrition", icon: Apple },
+    { id: "workouts" as const, name: t("app.tabWorkouts"), url: "#workouts", icon: Dumbbell },
+    { id: "profile" as const, name: t("app.tabProfile"), url: "#profile", icon: User },
+  ];
+
+  const activeNavName =
+    navItems.find((item) => item.id === tab)?.name ?? navItems[0].name;
+
   useEffect(() => {
     setMessages([
       { role: "ai", text: t("app.msg1") },
@@ -22,12 +34,6 @@ export function AppShellPage() {
       { role: "ai", text: t("app.msg3") },
     ]);
   }, [locale, t]);
-
-  const appTabs = [
-    { id: "chat" as const, label: t("app.tabChat") },
-    { id: "nutrition" as const, label: t("app.tabNutrition") },
-    { id: "workouts" as const, label: t("app.tabWorkouts") },
-  ];
 
   const nutritionItems = [
     { title: t("app.calTitle"), value: t("app.calValue") },
@@ -46,6 +52,11 @@ export function AppShellPage() {
     navigate("/");
   }
 
+  function handleTabChange(name: string) {
+    const next = navItems.find((item) => item.name === name);
+    if (next) setTab(next.id);
+  }
+
   function sendMessage(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const text = input.trim();
@@ -62,43 +73,29 @@ export function AppShellPage() {
   }
 
   return (
-    <div className="flex min-h-[100svh] flex-col bg-ink text-mist">
-      <header className="flex items-center justify-between border-b border-line px-4 py-4 md:px-8">
-        <Link to="/" className="font-display text-xl tracking-[0.12em]">
-          FITNES
-        </Link>
-        <div className="flex items-center gap-3 text-sm">
-          <LanguageToggle className="size-9 rounded-sm border border-line text-fog hover:border-signal hover:bg-transparent hover:text-mist" />
-          <ThemeToggle />
-          <span className="hidden truncate text-fog sm:inline">{userEmail}</span>
-          <button
-            type="button"
-            onClick={handleSignOut}
-            className="text-fog hover:text-mist"
-          >
-            {t("app.signOut")}
-          </button>
-        </div>
-      </header>
+    <div className="flex min-h-svh flex-col bg-ink text-mist">
+      <NavBar
+        items={navItems}
+        activeTab={activeNavName}
+        onTabChange={handleTabChange}
+        trailing={
+          <>
+            <LanguageToggle className="size-9 shrink-0 rounded-full text-foreground/80 hover:bg-muted hover:text-primary" />
+            <ThemeToggle className="size-9 shrink-0 rounded-full border-transparent text-foreground/80 hover:border-border hover:bg-muted hover:text-primary" />
+            <button
+              type="button"
+              onClick={handleSignOut}
+              aria-label={t("app.signOut")}
+              title={t("app.signOut")}
+              className="inline-flex size-9 shrink-0 items-center justify-center rounded-full text-foreground/80 transition-colors hover:bg-muted hover:text-primary"
+            >
+              <LogOut size={18} strokeWidth={2.5} aria-hidden />
+            </button>
+          </>
+        }
+      />
 
-      <div className="flex gap-1 border-b border-line px-4 md:px-8">
-        {appTabs.map((item) => (
-          <button
-            key={item.id}
-            type="button"
-            onClick={() => setTab(item.id)}
-            className={`border-b-2 px-3 py-3 text-sm font-medium transition ${
-              tab === item.id
-                ? "border-signal text-mist"
-                : "border-transparent text-fog hover:text-mist"
-            }`}
-          >
-            {item.label}
-          </button>
-        ))}
-      </div>
-
-      <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col px-4 py-6 md:px-8">
+      <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col px-4 py-6 pb-24 sm:px-8 sm:pb-6 sm:pt-24">
         {tab === "chat" && (
           <>
             <div className="flex-1 space-y-4 overflow-y-auto pb-4">
@@ -167,6 +164,26 @@ export function AppShellPage() {
                 </li>
               ))}
             </ul>
+          </div>
+        )}
+
+        {tab === "profile" && (
+          <div className="space-y-4">
+            <h1 className="text-2xl font-semibold">{t("app.profileTitle")}</h1>
+            <p className="text-sm text-fog">{t("app.profileHint")}</p>
+            <ul className="divide-y divide-line border border-line">
+              <li className="flex flex-col gap-1 px-4 py-4 sm:flex-row sm:items-center sm:justify-between">
+                <span className="text-fog">{t("app.profileEmail")}</span>
+                <span className="font-medium break-all">{userEmail}</span>
+              </li>
+            </ul>
+            <button
+              type="button"
+              onClick={handleSignOut}
+              className="rounded-sm border border-line px-4 py-2.5 text-sm text-fog transition hover:border-signal hover:text-mist"
+            >
+              {t("app.signOut")}
+            </button>
           </div>
         )}
       </main>

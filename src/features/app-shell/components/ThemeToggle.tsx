@@ -1,11 +1,12 @@
 import { useLocale } from "@/shared/i18n/LocaleContext";
+import { cn } from "@/shared/lib/utils";
 import { useTheme } from "@/shared/theme/ThemeContext";
 
 interface ThemeToggleProps {
   className?: string;
 }
 
-export function ThemeToggle({ className = "" }: ThemeToggleProps) {
+export function ThemeToggle({ className }: ThemeToggleProps) {
   const { theme, toggleTheme } = useTheme();
   const { t } = useLocale();
   const isDark = theme === "dark";
@@ -16,7 +17,10 @@ export function ThemeToggle({ className = "" }: ThemeToggleProps) {
       onClick={toggleTheme}
       aria-label={isDark ? t("theme.toLight") : t("theme.toDark")}
       title={isDark ? t("theme.light") : t("theme.dark")}
-      className={`inline-flex size-9 items-center justify-center rounded-sm border border-line text-fog transition hover:border-signal hover:text-mist ${className}`}
+      className={cn(
+        "inline-flex size-9 items-center justify-center rounded-sm border border-line text-fog transition hover:border-signal hover:text-mist",
+        className,
+      )}
     >
       {isDark ? (
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>

@@ -1,22 +1,45 @@
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuthSession } from "@/features/auth/context/AuthSessionContext";
+import { LanguageToggle } from "@/shared/i18n/LanguageToggle";
+import { useLocale } from "@/shared/i18n/LocaleContext";
 import { ThemeToggle } from "../components/ThemeToggle";
-import {
-  appTabs,
-  mockMessages,
-  nutritionItems,
-  workoutItems,
-} from "../fixtures/mock-data";
 import type { AppTab, ChatMessage } from "../types";
 
 export function AppShellPage() {
   const { user, signOut } = useAuthSession();
+  const { t, locale } = useLocale();
   const navigate = useNavigate();
   const [tab, setTab] = useState<AppTab>("chat");
   const [input, setInput] = useState("");
-  const [messages, setMessages] = useState<ChatMessage[]>(mockMessages);
-  const userEmail = user?.email ?? "Демо-профиль";
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const userEmail = user?.email ?? t("app.demoProfile");
+
+  useEffect(() => {
+    setMessages([
+      { role: "ai", text: t("app.msg1") },
+      { role: "user", text: t("app.msg2") },
+      { role: "ai", text: t("app.msg3") },
+    ]);
+  }, [locale, t]);
+
+  const appTabs = [
+    { id: "chat" as const, label: t("app.tabChat") },
+    { id: "nutrition" as const, label: t("app.tabNutrition") },
+    { id: "workouts" as const, label: t("app.tabWorkouts") },
+  ];
+
+  const nutritionItems = [
+    { title: t("app.calTitle"), value: t("app.calValue") },
+    { title: t("app.proteinTitle"), value: t("app.proteinValue") },
+    { title: t("app.dayTitle"), value: t("app.dayValue") },
+  ];
+
+  const workoutItems = [
+    { day: t("app.mon"), focus: t("app.monFocus") },
+    { day: t("app.wed"), focus: t("app.wedFocus") },
+    { day: t("app.fri"), focus: t("app.friFocus") },
+  ];
 
   function handleSignOut() {
     signOut();
@@ -32,7 +55,7 @@ export function AppShellPage() {
       { role: "user", text },
       {
         role: "ai",
-        text: "Демо без бэкенда: ответ ИИ появится здесь после подключения API.",
+        text: t("app.demoReply"),
       },
     ]);
     setInput("");
@@ -45,6 +68,7 @@ export function AppShellPage() {
           FITNES
         </Link>
         <div className="flex items-center gap-3 text-sm">
+          <LanguageToggle className="size-9 rounded-sm border border-line text-fog hover:border-signal hover:bg-transparent hover:text-mist" />
           <ThemeToggle />
           <span className="hidden truncate text-fog sm:inline">{userEmail}</span>
           <button
@@ -52,7 +76,7 @@ export function AppShellPage() {
             onClick={handleSignOut}
             className="text-fog hover:text-mist"
           >
-            Выйти
+            {t("app.signOut")}
           </button>
         </div>
       </header>
@@ -96,13 +120,13 @@ export function AppShellPage() {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 className="min-h-11 flex-1 rounded-sm border border-line bg-ink-soft px-3 text-sm outline-none focus:border-signal"
-                placeholder="Напиши цель или уточнение…"
+                placeholder={t("app.chatPlaceholder")}
               />
               <button
                 type="submit"
                 className="rounded-sm bg-signal px-4 text-sm font-semibold text-on-accent transition hover:bg-cta-hover hover:text-ink-soft"
               >
-                Отправить
+                {t("app.send")}
               </button>
             </form>
           </>
@@ -110,10 +134,8 @@ export function AppShellPage() {
 
         {tab === "nutrition" && (
           <div className="space-y-4">
-            <h1 className="text-2xl font-semibold">Питание</h1>
-            <p className="text-sm text-fog">
-              Сохранённые рекомендации (mock). Появятся после генерации ИИ.
-            </p>
+            <h1 className="text-2xl font-semibold">{t("app.nutritionTitle")}</h1>
+            <p className="text-sm text-fog">{t("app.nutritionHint")}</p>
             <ul className="divide-y divide-line border border-line">
               {nutritionItems.map((item) => (
                 <li
@@ -130,10 +152,8 @@ export function AppShellPage() {
 
         {tab === "workouts" && (
           <div className="space-y-4">
-            <h1 className="text-2xl font-semibold">Тренировки</h1>
-            <p className="text-sm text-fog">
-              Недельный план (mock). Будет обновляться из чата.
-            </p>
+            <h1 className="text-2xl font-semibold">{t("app.workoutsTitle")}</h1>
+            <p className="text-sm text-fog">{t("app.workoutsHint")}</p>
             <ul className="space-y-3">
               {workoutItems.map((w) => (
                 <li

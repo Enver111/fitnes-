@@ -1,6 +1,7 @@
 import { useEffect, useRef, type ReactNode } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useLocale } from "@/shared/i18n/LocaleContext";
 import { cn } from "@/shared/lib/utils";
 
 if (typeof window !== "undefined") {
@@ -183,24 +184,32 @@ const INJECTED_STYLES = `
 
 export function CinematicHero({
   brandName = "FITNES",
-  tagline1 = "План под тебя,",
-  tagline2 = "не шаблон.",
-  cardHeading = "ИИ-коуч, переосмысленный.",
-  cardDescription = (
-    <>
-      <span className="font-semibold text-white">FITNES</span> собирает рацион и
-      тренировки под твою цель — с диалогом, сохранением плана и визуальным
-      прогрессом.
-    </>
-  ),
+  tagline1,
+  tagline2,
+  cardHeading,
+  cardDescription,
   metricValue = 30,
-  metricLabel = "Дней плана",
-  ctaHeading = "Начни свой план.",
-  ctaDescription = "Бета открыта в вебе. Создай аккаунт и собери первый рацион с тренировками.",
+  metricLabel,
+  ctaHeading,
+  ctaDescription,
   onPrimaryCta,
   onSecondaryCta,
   className,
 }: CinematicHeroProps) {
+  const { t } = useLocale();
+  const resolvedTagline1 = tagline1 ?? t("hero.tagline1");
+  const resolvedTagline2 = tagline2 ?? t("hero.tagline2");
+  const resolvedCardHeading = cardHeading ?? t("hero.cardHeading");
+  const resolvedCardDescription = cardDescription ?? (
+    <>
+      <span className="font-semibold text-white">{brandName}</span>
+      {t("hero.cardDescription")}
+    </>
+  );
+  const resolvedMetricLabel = metricLabel ?? t("hero.metricLabel");
+  const resolvedCtaHeading = ctaHeading ?? t("hero.ctaHeading");
+  const resolvedCtaDescription = ctaDescription ?? t("hero.ctaDescription");
+
   const containerRef = useRef<HTMLDivElement>(null);
   const mainCardRef = useRef<HTMLDivElement>(null);
   const mockupRef = useRef<HTMLDivElement>(null);
@@ -459,25 +468,25 @@ export function CinematicHero({
 
       <div className="hero-text-wrapper transform-style-3d absolute z-10 flex w-screen flex-col items-center justify-center px-4 text-center will-change-transform">
         <h1 className="text-track gsap-reveal text-3d-matte mb-2 text-5xl font-bold tracking-tight md:text-7xl lg:text-[6rem]">
-          {tagline1}
+          {resolvedTagline1}
         </h1>
         <h1 className="text-days gsap-reveal text-silver-matte text-5xl font-extrabold tracking-tighter md:text-7xl lg:text-[6rem]">
-          {tagline2}
+          {resolvedTagline2}
         </h1>
       </div>
 
       <div className="cta-wrapper gsap-reveal pointer-events-auto absolute z-10 flex w-screen flex-col items-center justify-center px-4 text-center will-change-transform">
         <h2 className="text-silver-matte mb-6 text-4xl font-bold tracking-tight md:text-6xl lg:text-7xl">
-          {ctaHeading}
+          {resolvedCtaHeading}
         </h2>
         <p className="mx-auto mb-12 max-w-xl text-lg font-light leading-relaxed text-muted-foreground md:text-xl">
-          {ctaDescription}
+          {resolvedCtaDescription}
         </p>
         <div className="flex flex-col gap-6 sm:flex-row">
           <button
             type="button"
             onClick={onPrimaryCta}
-            aria-label="Скачать"
+            aria-label={t("hero.downloadAria")}
             className="btn-modern-light group flex items-center justify-center gap-3 rounded-[1.25rem] px-8 py-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
           >
             <svg
@@ -490,17 +499,17 @@ export function CinematicHero({
             </svg>
             <div className="text-left">
               <div className="mb-[-2px] text-[10px] font-bold tracking-wider text-neutral-500 uppercase">
-                Бета · веб
+                {t("hero.downloadLabel")}
               </div>
               <div className="text-xl leading-none font-bold tracking-tight">
-                Скачать
+                {t("hero.downloadCta")}
               </div>
             </div>
           </button>
           <button
             type="button"
             onClick={onSecondaryCta}
-            aria-label="Войти"
+            aria-label={t("hero.loginAria")}
             className="btn-modern-dark group flex items-center justify-center gap-3 rounded-[1.25rem] px-8 py-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-background"
           >
             <svg
@@ -518,7 +527,7 @@ export function CinematicHero({
               <line x1="15" y1="12" x2="3" y2="12" />
             </svg>
             <span className="text-xl leading-none font-bold tracking-tight">
-              Войти
+              {t("hero.loginCta")}
             </span>
           </button>
         </div>
@@ -581,10 +590,10 @@ export function CinematicHero({
                       <div className="phone-widget mb-8 flex items-center justify-between">
                         <div className="flex flex-col">
                           <span className="mb-1 text-[10px] font-bold tracking-widest text-neutral-400 uppercase">
-                            Сегодня
+                            {t("hero.today")}
                           </span>
                           <span className="text-xl font-bold tracking-tight text-white drop-shadow-md">
-                            План
+                            {t("hero.plan")}
                           </span>
                         </div>
                         <div className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-sm font-bold text-neutral-200 shadow-lg shadow-black/50">
@@ -620,7 +629,7 @@ export function CinematicHero({
                             0
                           </span>
                           <span className="mt-0.5 text-[8px] font-bold tracking-widest text-blue-200/50 uppercase">
-                            {metricLabel}
+                            {resolvedMetricLabel}
                           </span>
                         </div>
                       </div>
@@ -688,10 +697,10 @@ export function CinematicHero({
                   </div>
                   <div>
                     <p className="text-xs font-bold tracking-tight text-white lg:text-sm">
-                      7 дней подряд
+                      {t("hero.streakTitle")}
                     </p>
                     <p className="text-[10px] font-medium text-blue-200/50 lg:text-xs">
-                      Серия активна
+                      {t("hero.streakSubtitle")}
                     </p>
                   </div>
                 </div>
@@ -707,10 +716,10 @@ export function CinematicHero({
                   </div>
                   <div>
                     <p className="text-xs font-bold tracking-tight text-white lg:text-sm">
-                      План готов
+                      {t("hero.planReady")}
                     </p>
                     <p className="text-[10px] font-medium text-blue-200/50 lg:text-xs">
-                      Рацион + тренировки
+                      {t("hero.planReadySubtitle")}
                     </p>
                   </div>
                 </div>
@@ -719,10 +728,10 @@ export function CinematicHero({
 
             <div className="card-left-text gsap-reveal order-3 z-20 flex w-full flex-col justify-center px-4 text-center lg:order-1 lg:max-w-none lg:px-0 lg:text-left">
               <h3 className="mb-0 text-2xl font-bold tracking-tight text-white md:text-3xl lg:mb-5 lg:text-4xl">
-                {cardHeading}
+                {resolvedCardHeading}
               </h3>
               <p className="mx-auto hidden max-w-sm text-sm font-normal leading-relaxed text-blue-100/70 md:block md:text-base lg:mx-0 lg:max-w-none lg:text-lg">
-                {cardDescription}
+                {resolvedCardDescription}
               </p>
             </div>
           </div>

@@ -1,13 +1,14 @@
 import type { AuthMode } from "@/features/auth/types";
+import type { TranslationKey } from "@/shared/i18n/LocaleContext";
 
 export interface NavItem {
-  name: string;
+  labelKey: TranslationKey;
   href?: string;
   action?: AuthMode;
 }
 
 export const landingNavItems: NavItem[] = [
-  { name: "Главная", href: "#home" },
-  { name: "Блог", href: "#blog" },
-  { name: "Войти", href: "#login", action: "login" },
+  { labelKey: "nav.home", href: "#home" },
+  { labelKey: "nav.blog", href: "#blog" },
+  { labelKey: "nav.login", href: "#login", action: "login" },
 ];

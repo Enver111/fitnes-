@@ -1,10 +1,13 @@
 import { Button } from "@/shared/ui/button";
 import { Input } from "@/shared/ui/input";
 import { Label } from "@/shared/ui/label";
+import { useLocale } from "@/shared/i18n/LocaleContext";
 import { Link2, Camera, Briefcase, MessageCircle } from "lucide-react";
 import type { FormEvent } from "react";
 
 export function AnimatedWaveFooter() {
+  const { t } = useLocale();
+
   return (
     <footer className="relative bg-linear-to-b from-background to-primary/10 pt-20 pb-8">
       <div className="absolute inset-0 overflow-hidden">
@@ -31,7 +34,7 @@ export function AnimatedWaveFooter() {
       <div className="container relative z-10 mx-auto px-4 md:px-6">
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
           <div>
-            <h2 className="mb-4 text-2xl font-bold">Будь на связи</h2>
+            <h2 className="mb-4 text-2xl font-bold">{t("footer.stayInTouch")}</h2>
             <form
               className="space-y-2"
               onSubmit={(e: FormEvent<HTMLFormElement>) => {
@@ -42,55 +45,55 @@ export function AnimatedWaveFooter() {
                 <Label htmlFor="footer-email">Email</Label>
                 <Input
                   id="footer-email"
-                  placeholder="Твой email"
+                  placeholder={t("footer.emailPlaceholder")}
                   type="email"
                   className="backdrop-blur-xs"
                 />
               </div>
               <Button type="submit" className="w-full">
-                Подписаться
+                {t("footer.subscribe")}
               </Button>
             </form>
           </div>
           <div>
-            <h3 className="mb-4 text-lg font-semibold">Навигация</h3>
+            <h3 className="mb-4 text-lg font-semibold">{t("footer.navigation")}</h3>
             <nav className="space-y-2 text-sm">
               <a
                 href="#home"
                 className="block transition-colors hover:text-primary"
               >
-                Главная
+                {t("footer.home")}
               </a>
               <a
                 href="#about"
                 className="block transition-colors hover:text-primary"
               >
-                О нас
+                {t("footer.about")}
               </a>
               <a
                 href="#blog"
                 className="block transition-colors hover:text-primary"
               >
-                Блог
+                {t("footer.blog")}
               </a>
               <a
                 href="#login"
                 className="block transition-colors hover:text-primary"
               >
-                Войти
+                {t("footer.login")}
               </a>
             </nav>
           </div>
           <div>
-            <h3 className="mb-4 text-lg font-semibold">Контакты</h3>
+            <h3 className="mb-4 text-lg font-semibold">{t("footer.contacts")}</h3>
             <address className="space-y-2 text-sm not-italic">
-              <p>FITNES · AI fitness coach</p>
-              <p>Бета · веб</p>
+              <p>{t("footer.contactLine")}</p>
+              <p>{t("footer.contactBeta")}</p>
               <p>Email: hello@fitnes.app</p>
             </address>
           </div>
           <div>
-            <h3 className="mb-4 text-lg font-semibold">Соцсети</h3>
+            <h3 className="mb-4 text-lg font-semibold">{t("footer.social")}</h3>
             <div className="flex space-x-4">
               <Button variant="ghost" size="icon" className="rounded-full">
                 <Link2 className="h-4 w-4" />
@@ -113,7 +116,7 @@ export function AnimatedWaveFooter() {
         </div>
         <div className="mt-12 border-t border-border pt-8 text-center">
           <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} FITNES. Все права защищены.
+            {t("footer.rights", { year: new Date().getFullYear() })}
           </p>
         </div>
       </div>

@@ -1,3 +1,4 @@
+import { useLocale } from "@/shared/i18n/LocaleContext";
 import { useTheme } from "@/shared/theme/ThemeContext";
 
 interface ThemeToggleProps {
@@ -6,14 +7,15 @@ interface ThemeToggleProps {
 
 export function ThemeToggle({ className = "" }: ThemeToggleProps) {
   const { theme, toggleTheme } = useTheme();
+  const { t } = useLocale();
   const isDark = theme === "dark";
 
   return (
     <button
       type="button"
       onClick={toggleTheme}
-      aria-label={isDark ? "Включить светлую тему" : "Включить тёмную тему"}
-      title={isDark ? "Светлая тема" : "Тёмная тема"}
+      aria-label={isDark ? t("theme.toLight") : t("theme.toDark")}
+      title={isDark ? t("theme.light") : t("theme.dark")}
       className={`inline-flex size-9 items-center justify-center rounded-sm border border-line text-fog transition hover:border-signal hover:text-mist ${className}`}
     >
       {isDark ? (

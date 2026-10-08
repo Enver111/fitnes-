@@ -2,6 +2,8 @@ import * as React from "react";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { Navigation, Menu, Moon, Sun } from "lucide-react";
 import { cn } from "@/shared/lib/utils";
+import { LanguageToggle } from "@/shared/i18n/LanguageToggle";
+import { useLocale } from "@/shared/i18n/LocaleContext";
 import { useTheme } from "@/shared/theme/ThemeContext";
 import { landingNavItems, type NavItem } from "../config/nav";
 
@@ -94,6 +96,7 @@ export function AnimatedNav({
 }: AnimatedNavProps) {
   const [isExpanded, setExpanded] = React.useState(true);
   const { theme, toggleTheme } = useTheme();
+  const { t } = useLocale();
   const isDark = theme === "dark";
 
   const { scrollY } = useScroll();
@@ -160,15 +163,22 @@ export function AnimatedNav({
         >
           {items.map((item) => (
             <motion.a
-              key={item.name}
+              key={item.labelKey}
               href={item.href ?? "#"}
               variants={itemVariants}
               onClick={(e) => handleItemClick(e, item)}
               className="px-2 py-1 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
             >
-              {item.name}
+              {t(item.labelKey)}
             </motion.a>
           ))}
+
+          <motion.div variants={itemVariants} className="ml-1">
+            <LanguageToggle
+              onClick={(e) => e.stopPropagation()}
+              className="size-8"
+            />
+          </motion.div>
 
           <motion.button
             type="button"
@@ -177,9 +187,9 @@ export function AnimatedNav({
               e.stopPropagation();
               toggleTheme();
             }}
-            aria-label={isDark ? "Включить светлую тему" : "Включить тёмную тему"}
-            title={isDark ? "Светлая тема" : "Тёмная тема"}
-            className="ml-1 inline-flex size-8 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-foreground/10 hover:text-foreground"
+            aria-label={isDark ? t("theme.toLight") : t("theme.toDark")}
+            title={isDark ? t("theme.light") : t("theme.dark")}
+            className="inline-flex size-8 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-foreground/10 hover:text-foreground"
           >
             {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
           </motion.button>

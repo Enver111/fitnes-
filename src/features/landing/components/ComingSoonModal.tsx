@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useId } from "react";
 import { createPortal } from "react-dom";
+import { useLocale } from "@/shared/i18n/LocaleContext";
 
 interface ComingSoonModalProps {
   open: boolean;
@@ -9,6 +10,7 @@ interface ComingSoonModalProps {
 
 export function ComingSoonModal({ open, onClose }: ComingSoonModalProps) {
   const titleId = useId();
+  const { t } = useLocale();
 
   useEffect(() => {
     if (!open) return undefined;
@@ -39,7 +41,7 @@ export function ComingSoonModal({ open, onClose }: ComingSoonModalProps) {
         >
           <button
             type="button"
-            aria-label="Закрыть"
+            aria-label={t("comingSoon.close")}
             className="absolute inset-0 bg-black/60 backdrop-blur-[2px]"
             onClick={onClose}
           />
@@ -57,7 +59,7 @@ export function ComingSoonModal({ open, onClose }: ComingSoonModalProps) {
             <button
               type="button"
               onClick={onClose}
-              aria-label="Закрыть модалку"
+              aria-label={t("comingSoon.closeModal")}
               className="absolute top-4 right-4 flex size-8 items-center justify-center rounded-lg text-[var(--auth-muted)] transition hover:bg-[var(--auth-btn)] hover:text-[var(--auth-text)]"
             >
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
@@ -75,11 +77,10 @@ export function ComingSoonModal({ open, onClose }: ComingSoonModalProps) {
                 id={titleId}
                 className="text-[1.65rem] font-semibold tracking-tight text-[var(--auth-text)]"
               >
-                В разработке
+                {t("comingSoon.title")}
               </h2>
               <p className="mt-3 text-sm leading-relaxed text-[var(--auth-muted)]">
-                Мобильное приложение ещё в разработке. Сейчас доступна веб-версия — зайди
-                через «Войти».
+                {t("comingSoon.body")}
               </p>
             </div>
 
@@ -88,7 +89,7 @@ export function ComingSoonModal({ open, onClose }: ComingSoonModalProps) {
               onClick={onClose}
               className="mt-7 flex w-full items-center justify-center rounded-lg bg-[var(--auth-primary)] px-4 py-3 text-sm font-medium text-[var(--auth-primary-text)] transition hover:opacity-90"
             >
-              Понятно
+              {t("comingSoon.ok")}
             </button>
           </motion.div>
         </motion.div>

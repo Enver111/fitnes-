@@ -27,8 +27,13 @@
                 : 'dark'
           document.documentElement.setAttribute('data-theme', theme)
           document.documentElement.style.colorScheme = theme
+
+          var locale = localStorage.getItem('fitnes-locale')
+          document.documentElement.lang =
+            locale === 'en' || locale === 'ru' ? locale : 'ru'
         } catch (e) {
           document.documentElement.setAttribute('data-theme', 'dark')
+          document.documentElement.lang = 'ru'
         }
       })()
     </script>

@@ -2,6 +2,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useId, useState, type FormEvent } from "react";
 import { createPortal } from "react-dom";
 import { useNavigate } from "react-router-dom";
+import { useLocale } from "@/shared/i18n/LocaleContext";
 import { useAuthModal } from "../context/AuthModalContext";
 import { useAuthSession } from "../context/AuthSessionContext";
 import { isValidEmail } from "../lib/storage";
@@ -40,6 +41,7 @@ function GitHubIcon() {
 export function AuthModal() {
   const { open, mode, setMode, closeAuth } = useAuthModal();
   const { signIn } = useAuthSession();
+  const { t } = useLocale();
   const navigate = useNavigate();
   const [email, setEmail] = useState("demo@fitnes.app");
   const [error, setError] = useState("");
@@ -75,11 +77,11 @@ export function AuthModal() {
     e.preventDefault();
     const value = email.trim();
     if (!value) {
-      setError("Введите email");
+      setError(t("auth.emailRequired"));
       return;
     }
     if (!isValidEmail(value)) {
-      setError("Введите корректный email");
+      setError(t("auth.emailInvalid"));
       return;
     }
     setError("");
@@ -100,7 +102,7 @@ export function AuthModal() {
         >
           <button
             type="button"
-            aria-label="Закрыть"
+            aria-label={t("auth.close")}
             className="absolute inset-0 bg-black/60 backdrop-blur-[2px]"
             onClick={closeAuth}
           />
@@ -118,7 +120,7 @@ export function AuthModal() {
             <button
               type="button"
               onClick={closeAuth}
-              aria-label="Закрыть модалку"
+              aria-label={t("auth.closeModal")}
               className="absolute top-4 right-4 flex size-8 items-center justify-center rounded-lg text-[var(--auth-muted)] transition hover:bg-[var(--auth-btn)] hover:text-[var(--auth-text)]"
             >
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
@@ -136,12 +138,10 @@ export function AuthModal() {
                 id={titleId}
                 className="text-[1.65rem] font-semibold tracking-tight text-[var(--auth-text)]"
               >
-                {isLogin ? "С возвращением" : "Создать аккаунт"}
+                {isLogin ? t("auth.welcomeBack") : t("auth.createAccount")}
               </h2>
               <p className="mt-2 text-sm text-[var(--auth-muted)]">
-                {isLogin
-                  ? "Выберите удобный способ входа"
-                  : "Выберите удобный способ регистрации"}
+                {isLogin ? t("auth.chooseLogin") : t("auth.chooseRegister")}
               </p>
             </div>
 
@@ -152,7 +152,7 @@ export function AuthModal() {
                 className="flex w-full items-center justify-center gap-3 rounded-lg border border-[var(--auth-border)] bg-[var(--auth-btn)] px-4 py-3 text-sm font-medium text-[var(--auth-text)] transition hover:bg-[var(--auth-btn-hover)]"
               >
                 <GoogleIcon />
-                Продолжить через Google
+                {t("auth.continueGoogle")}
               </button>
               <button
                 type="button"
@@ -160,14 +160,14 @@ export function AuthModal() {
                 className="flex w-full items-center justify-center gap-3 rounded-lg border border-[var(--auth-border)] bg-[var(--auth-btn)] px-4 py-3 text-sm font-medium text-[var(--auth-text)] transition hover:bg-[var(--auth-btn-hover)]"
               >
                 <GitHubIcon />
-                Продолжить через GitHub
+                {t("auth.continueGitHub")}
               </button>
             </div>
 
             <div className="my-6 flex items-center gap-3">
               <div className="h-px flex-1 bg-[var(--auth-border)]" />
               <span className="shrink-0 text-[10px] font-medium tracking-[0.12em] text-[var(--auth-muted)]">
-                ИЛИ ЧЕРЕЗ EMAIL
+                {t("auth.orEmail")}
               </span>
               <div className="h-px flex-1 bg-[var(--auth-border)]" />
             </div>
@@ -175,7 +175,7 @@ export function AuthModal() {
             <form onSubmit={handleSubmit} className="space-y-3" noValidate>
               <label className="block">
                 <span className="mb-2 block text-sm font-medium text-[var(--auth-text)]">
-                  Электронная почта
+                  {t("auth.email")}
                 </span>
                 <input
                   type="email"
@@ -186,7 +186,7 @@ export function AuthModal() {
                     setEmail(e.target.value);
                     if (error) setError("");
                   }}
-                  placeholder="Введите ваш email"
+                  placeholder={t("auth.emailPlaceholder")}
                   className="w-full rounded-lg border border-[var(--auth-border)] bg-[var(--auth-input)] px-3.5 py-3 text-sm text-[var(--auth-text)] outline-none transition placeholder:text-[var(--auth-muted)] focus:border-[var(--auth-focus)]"
                 />
               </label>
@@ -199,27 +199,27 @@ export function AuthModal() {
                 type="submit"
                 className="w-full rounded-lg bg-[var(--auth-primary)] py-3 text-sm font-semibold text-[var(--auth-primary-text)] transition hover:opacity-90"
               >
-                {isLogin ? "Войти" : "Зарегистрироваться"}
+                {isLogin ? t("auth.submitLogin") : t("auth.submitRegister")}
               </button>
               <p className="text-center text-xs text-[var(--auth-muted)]">
-                Введите email и нажмите кнопку, чтобы открыть приложение
+                {t("auth.emailHint")}
               </p>
             </form>
 
             <p className="mt-7 text-center text-xs leading-relaxed text-[var(--auth-muted)]">
-              Продолжая, вы соглашаетесь с{" "}
+              {t("auth.termsPrefix")}{" "}
               <a
                 href="#terms"
                 className="text-[var(--auth-text)] underline underline-offset-2"
               >
-                Условиями использования
+                {t("auth.terms")}
               </a>{" "}
-              и{" "}
+              {t("auth.and")}{" "}
               <a
                 href="#privacy"
                 className="text-[var(--auth-text)] underline underline-offset-2"
               >
-                Политикой конфиденциальности
+                {t("auth.privacy")}
               </a>
               .
             </p>
@@ -227,7 +227,7 @@ export function AuthModal() {
             <p className="mt-5 text-center text-sm text-[var(--auth-muted)]">
               {isLogin ? (
                 <>
-                  Нет аккаунта?{" "}
+                  {t("auth.noAccount")}{" "}
                   <button
                     type="button"
                     onClick={() => {
@@ -236,12 +236,12 @@ export function AuthModal() {
                     }}
                     className="font-medium text-[var(--auth-text)] underline underline-offset-2"
                   >
-                    Зарегистрироваться
+                    {t("auth.register")}
                   </button>
                 </>
               ) : (
                 <>
-                  Уже есть аккаунт?{" "}
+                  {t("auth.hasAccount")}{" "}
                   <button
                     type="button"
                     onClick={() => {
@@ -250,7 +250,7 @@ export function AuthModal() {
                     }}
                     className="font-medium text-[var(--auth-text)] underline underline-offset-2"
                   >
-                    Войти
+                    {t("auth.login")}
                   </button>
                 </>
               )}

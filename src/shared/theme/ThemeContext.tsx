@@ -28,9 +28,7 @@ const ThemeContext = createContext<ThemeContextValue | null>(null);
 function getPreferredTheme(): ThemeId {
   const stored = localStorage.getItem(THEME_STORAGE_KEY);
   if (stored === "light" || stored === "dark") return stored;
-  return window.matchMedia("(prefers-color-scheme: light)").matches
-    ? "light"
-    : "dark";
+  return "dark";
 }
 
 function upsertLink(

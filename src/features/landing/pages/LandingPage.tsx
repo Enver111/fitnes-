@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useAuthModal } from "@/features/auth/context/AuthModalContext";
 import { AnimatedNav } from "../components/AnimatedNav";
-import { AnimatedWaveFooter } from "../components/AnimatedWaveFooter";
 import { CinematicHero } from "../components/CinematicHero";
 import { landingNavItems } from "../config/nav";
 
@@ -30,7 +29,6 @@ export function LandingPage() {
         onPrimaryCta={() => openAuth("login")}
         onSecondaryCta={() => openAuth("login")}
       />
-      <AnimatedWaveFooter />
     </div>
   );
 }

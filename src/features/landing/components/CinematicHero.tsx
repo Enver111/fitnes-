@@ -3,6 +3,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useLocale } from "@/shared/i18n/LocaleContext";
 import { cn } from "@/shared/lib/utils";
+import { AnimatedWaveFooter } from "./AnimatedWaveFooter";
 import { HeartRateLoader } from "./HeartRateLoader";
 import { StrokeText } from "./StrokeText";
 
@@ -451,12 +452,31 @@ export function CinematicHero({
         scale: 0.8,
         filter: "blur(30px)",
       });
+      gsap.set(".hero-footer", { yPercent: 100 });
+
+      const footerEl = containerRef.current?.querySelector(
+        ".hero-footer",
+      ) as HTMLElement | null;
+      const ctaContentEl = containerRef.current?.querySelector(
+        ".cta-content",
+      ) as HTMLElement | null;
+      const footerH = footerEl?.offsetHeight ?? 0;
+      const ctaH = ctaContentEl?.offsetHeight ?? 0;
+      const viewportH = window.innerHeight;
+      const gap = 24;
+      /* Keep CTA centered in the free space above the footer */
+      const ctaLift = (footerH + gap) / 2;
+      const availableForCta = Math.max(viewportH - footerH - gap, 120);
+      const ctaScale =
+        ctaH > availableForCta
+          ? Math.max(0.62, availableForCta / ctaH)
+          : 1;
 
       const scrollTl = gsap.timeline({
         scrollTrigger: {
           trigger: containerRef.current,
           start: "top top",
-          end: "+=15000",
+          end: "+=17000",
           pin: true,
           scrub: 1,
           anticipatePin: 1,
@@ -849,7 +869,28 @@ export function CinematicHero({
           y: -offscreenY,
           ease: "power3.in",
           duration: 1.5,
-        });
+        })
+        /* Footer rises; CTA lifts into the free space above it */
+        .to({}, { duration: 1.2 })
+        .to(
+          ".hero-footer",
+          {
+            yPercent: 0,
+            ease: "none",
+            duration: 3,
+          },
+          "footerIn",
+        )
+        .to(
+          ".cta-wrapper",
+          {
+            y: -ctaLift,
+            scale: ctaScale,
+            ease: "none",
+            duration: 3,
+          },
+          "footerIn",
+        );
     }, containerRef);
 
     return () => ctx.revert();
@@ -933,62 +974,68 @@ export function CinematicHero({
         </button>
       </div>
 
-      <div className="cta-wrapper gsap-reveal pointer-events-auto absolute z-10 flex w-screen flex-col items-center justify-center px-4 text-center will-change-transform">
-        <h2 className="text-silver-matte mb-6 text-4xl font-bold tracking-tight md:text-6xl lg:text-7xl">
-          {resolvedCtaHeading}
-        </h2>
-        <p className="mx-auto mb-12 max-w-xl text-lg font-light leading-relaxed text-muted-foreground md:text-xl">
-          {resolvedCtaDescription}
-        </p>
-        <div className="flex flex-col gap-6 sm:flex-row">
-          <button
-            type="button"
-            onClick={onPrimaryCta}
-            aria-label={t("hero.downloadAria")}
-            className="btn-modern-light group flex items-center justify-center gap-3 rounded-[1.25rem] px-8 py-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-          >
-            <svg
-              className="h-8 w-8 transition-transform group-hover:scale-105"
-              fill="currentColor"
-              viewBox="0 0 384 512"
-              aria-hidden="true"
+      <div className="cta-wrapper gsap-reveal pointer-events-auto absolute inset-0 z-10 flex w-screen flex-col items-center justify-center px-4 text-center will-change-transform">
+        <div className="cta-content flex flex-col items-center">
+          <h2 className="text-silver-matte mb-4 text-3xl font-bold tracking-tight sm:mb-6 sm:text-4xl md:text-6xl lg:text-7xl">
+            {resolvedCtaHeading}
+          </h2>
+          <p className="mx-auto mb-8 max-w-xl text-base font-light leading-relaxed text-muted-foreground sm:mb-12 sm:text-lg md:text-xl">
+            {resolvedCtaDescription}
+          </p>
+          <div className="flex flex-col gap-4 sm:flex-row sm:gap-6">
+            <button
+              type="button"
+              onClick={onPrimaryCta}
+              aria-label={t("hero.downloadAria")}
+              className="btn-modern-light group flex items-center justify-center gap-3 rounded-[1.25rem] px-8 py-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
             >
-              <path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z" />
-            </svg>
-            <div className="text-left">
-              <div className="mb-[-2px] text-[10px] font-bold tracking-wider text-neutral-500 uppercase">
-                {t("hero.downloadLabel")}
+              <svg
+                className="h-8 w-8 transition-transform group-hover:scale-105"
+                fill="currentColor"
+                viewBox="0 0 384 512"
+                aria-hidden="true"
+              >
+                <path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z" />
+              </svg>
+              <div className="text-left">
+                <div className="mb-[-2px] text-[10px] font-bold tracking-wider text-neutral-500 uppercase">
+                  {t("hero.downloadLabel")}
+                </div>
+                <div className="text-xl leading-none font-bold tracking-tight">
+                  {t("hero.downloadCta")}
+                </div>
               </div>
-              <div className="text-xl leading-none font-bold tracking-tight">
-                {t("hero.downloadCta")}
-              </div>
-            </div>
-          </button>
-          <button
-            type="button"
-            onClick={onSecondaryCta}
-            aria-label={t("hero.loginAria")}
-            className="btn-modern-dark group flex items-center justify-center gap-3 rounded-[1.25rem] px-8 py-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-background"
-          >
-            <svg
-              className="h-6 w-6 transition-transform group-hover:scale-105"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
+            </button>
+            <button
+              type="button"
+              onClick={onSecondaryCta}
+              aria-label={t("hero.loginAria")}
+              className="btn-modern-dark group flex items-center justify-center gap-3 rounded-[1.25rem] px-8 py-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-background"
             >
-              <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
-              <polyline points="10 17 15 12 10 7" />
-              <line x1="15" y1="12" x2="3" y2="12" />
-            </svg>
-            <span className="text-xl leading-none font-bold tracking-tight">
-              {t("hero.loginCta")}
-            </span>
-          </button>
+              <svg
+                className="h-6 w-6 transition-transform group-hover:scale-105"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
+                <polyline points="10 17 15 12 10 7" />
+                <line x1="15" y1="12" x2="3" y2="12" />
+              </svg>
+              <span className="text-xl leading-none font-bold tracking-tight">
+                {t("hero.loginCta")}
+              </span>
+            </button>
+          </div>
         </div>
+      </div>
+
+      <div className="hero-footer pointer-events-auto absolute inset-x-0 bottom-0 z-40 will-change-transform">
+        <AnimatedWaveFooter />
       </div>
 
       <div

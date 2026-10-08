@@ -9,9 +9,9 @@ export function AnimatedWaveFooter() {
   const { t } = useLocale();
 
   return (
-    <footer className="relative bg-linear-to-b from-background to-primary/10 pt-20 pb-8">
+    <footer className="relative bg-linear-to-b from-background to-primary/10 pt-10 pb-5 [@media(max-height:900px)]:pt-7 [@media(max-height:900px)]:pb-4 md:pt-14 md:pb-7 lg:pt-16 lg:pb-8">
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute bottom-0 h-[500px] w-[3600px] animate-wave">
+        <div className="absolute bottom-0 h-36 w-[3600px] animate-wave [@media(max-height:900px)]:h-24 md:h-48 lg:h-56">
           <svg
             className="h-full w-full"
             viewBox="0 0 3600 500"
@@ -32,9 +32,11 @@ export function AnimatedWaveFooter() {
         </div>
       </div>
       <div className="container relative z-10 mx-auto px-4 md:px-6">
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-5 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
           <div>
-            <h2 className="mb-4 text-2xl font-bold">{t("footer.stayInTouch")}</h2>
+            <h2 className="mb-3 text-xl font-bold md:mb-4 md:text-2xl">
+              {t("footer.stayInTouch")}
+            </h2>
             <form
               className="space-y-2"
               onSubmit={(e: FormEvent<HTMLFormElement>) => {
@@ -56,8 +58,10 @@ export function AnimatedWaveFooter() {
             </form>
           </div>
           <div>
-            <h3 className="mb-4 text-lg font-semibold">{t("footer.navigation")}</h3>
-            <nav className="space-y-2 text-sm">
+            <h3 className="mb-3 text-base font-semibold md:mb-4 md:text-lg">
+              {t("footer.navigation")}
+            </h3>
+            <nav className="space-y-1.5 text-sm md:space-y-2">
               <a
                 href="#home"
                 className="block transition-colors hover:text-primary"
@@ -85,15 +89,19 @@ export function AnimatedWaveFooter() {
             </nav>
           </div>
           <div>
-            <h3 className="mb-4 text-lg font-semibold">{t("footer.contacts")}</h3>
-            <address className="space-y-2 text-sm not-italic">
+            <h3 className="mb-3 text-base font-semibold md:mb-4 md:text-lg">
+              {t("footer.contacts")}
+            </h3>
+            <address className="space-y-1.5 text-sm not-italic md:space-y-2">
               <p>{t("footer.contactLine")}</p>
               <p>{t("footer.contactBeta")}</p>
               <p>Email: hello@fitnes.app</p>
             </address>
           </div>
           <div>
-            <h3 className="mb-4 text-lg font-semibold">{t("footer.social")}</h3>
+            <h3 className="mb-3 text-base font-semibold md:mb-4 md:text-lg">
+              {t("footer.social")}
+            </h3>
             <div className="flex space-x-4">
               <Button variant="ghost" size="icon" className="rounded-full">
                 <Link2 className="h-4 w-4" />
@@ -114,7 +122,7 @@ export function AnimatedWaveFooter() {
             </div>
           </div>
         </div>
-        <div className="mt-12 border-t border-border pt-8 text-center">
+        <div className="mt-8 border-t border-border pt-5 text-center md:mt-12 md:pt-8">
           <p className="text-sm text-muted-foreground">
             {t("footer.rights", { year: new Date().getFullYear() })}
           </p>

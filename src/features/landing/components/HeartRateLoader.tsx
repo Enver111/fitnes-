@@ -26,7 +26,7 @@ export function HeartRateLoader({ className }: HeartRateLoaderProps) {
           strokeWidth={2.5}
           strokeLinejoin="round"
           strokeDasharray={814}
-          className="animate-heart-rate text-ember"
+          className="animate-heart-rate text-[#39FF14] drop-shadow-[0_0_10px_rgba(57,255,20,0.75)]"
         />
       </svg>
     </div>

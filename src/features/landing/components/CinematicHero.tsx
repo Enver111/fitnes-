@@ -384,7 +384,8 @@ export function CinematicHero({
           duration: 1.2,
         };
         if (mockupRef.current) gsap.to(mockupRef.current, tilt);
-        if (nutritionMockupRef.current) gsap.to(nutritionMockupRef.current, tilt);
+        if (nutritionMockupRef.current)
+          gsap.to(nutritionMockupRef.current, tilt);
         if (workoutMockupRef.current) gsap.to(workoutMockupRef.current, tilt);
       });
     };
@@ -905,7 +906,7 @@ export function CinematicHero({
             trigger="mount"
           />
         </h1>
-        <p className="hero-copy-enter relative z-10 mx-auto mb-8 max-w-xl text-base font-light leading-relaxed text-signal md:mb-10 md:text-lg">
+        <p className="hero-copy-enter relative z-10 mx-auto mb-8 max-w-xl rounded-2xl bg-[color-mix(in_srgb,var(--ink)_65%,transparent)] p-2  text-base font-normal leading-relaxed text-mist backdrop-blur-2xl md:mb-10  md:text-lg">
           {t("hero.subtitle")}
         </p>
         <button
@@ -995,656 +996,661 @@ export function CinematicHero({
         style={{ perspective: "1500px" }}
       >
         <div className="coach-stage absolute inset-0 z-30 flex items-center justify-center">
-        <div
-          ref={mainCardRef}
-          className="main-card premium-depth-card gsap-reveal relative flex h-[92vh] w-[92vw] items-center justify-center overflow-hidden rounded-[32px] pointer-events-auto md:h-[85vh] md:w-[85vw] md:rounded-[40px]"
-        >
-          <div className="card-sheen" aria-hidden="true" />
+          <div
+            ref={mainCardRef}
+            className="main-card premium-depth-card gsap-reveal relative flex h-[92vh] w-[92vw] items-center justify-center overflow-hidden rounded-[32px] pointer-events-auto md:h-[85vh] md:w-[85vw] md:rounded-[40px]"
+          >
+            <div className="card-sheen" aria-hidden="true" />
 
-          <div className="relative z-10 mx-auto flex h-full w-full max-w-7xl flex-col items-center justify-evenly px-4 py-6 lg:grid lg:grid-cols-3 lg:gap-8 lg:px-12 lg:py-0">
-            <div className="card-right-text gsap-reveal order-1 z-20 flex w-full justify-center lg:order-3 lg:justify-end">
-              <h2 className="text-card-silver-matte text-6xl font-black tracking-tighter uppercase md:text-[6rem] lg:mt-0 lg:text-[8rem]">
-                {brandName}
-              </h2>
-            </div>
+            <div className="relative z-10 mx-auto flex h-full w-full max-w-7xl flex-col items-center justify-evenly px-4 py-6 lg:grid lg:grid-cols-3 lg:gap-8 lg:px-12 lg:py-0">
+              <div className="card-right-text gsap-reveal order-1 z-20 flex w-full justify-center lg:order-3 lg:justify-end">
+                <h2 className="text-card-silver-matte text-6xl font-black tracking-tighter uppercase md:text-[6rem] lg:mt-0 lg:text-[8rem]">
+                  {brandName}
+                </h2>
+              </div>
 
-            <div
-              className="mockup-scroll-wrapper relative order-2 z-10 flex h-95 w-full items-center justify-center lg:order-2 lg:h-150"
-              style={{ perspective: "1000px" }}
-            >
-              <div className="relative flex h-full w-full scale-[0.65] transform items-center justify-center md:scale-85 lg:scale-100">
-                <div
-                  ref={mockupRef}
-                  className="iphone-bezel relative flex h-145 w-70 transform-style-3d flex-col rounded-[3rem] will-change-transform"
-                >
+              <div
+                className="mockup-scroll-wrapper relative order-2 z-10 flex h-95 w-full items-center justify-center lg:order-2 lg:h-150"
+                style={{ perspective: "1000px" }}
+              >
+                <div className="relative flex h-full w-full scale-[0.65] transform items-center justify-center md:scale-85 lg:scale-100">
                   <div
-                    className="hardware-btn absolute top-[120px] -left-[3px] z-0 h-[25px] w-[3px] rounded-l-md"
-                    aria-hidden="true"
-                  />
-                  <div
-                    className="hardware-btn absolute top-[160px] -left-[3px] z-0 h-[45px] w-[3px] rounded-l-md"
-                    aria-hidden="true"
-                  />
-                  <div
-                    className="hardware-btn absolute top-[220px] -left-[3px] z-0 h-[45px] w-[3px] rounded-l-md"
-                    aria-hidden="true"
-                  />
-                  <div
-                    className="hardware-btn absolute top-[170px] -right-[3px] z-0 h-[70px] w-[3px] scale-x-[-1] rounded-r-md"
-                    aria-hidden="true"
-                  />
-
-                  <div className="absolute inset-1.75 z-10 overflow-hidden rounded-[2.5rem] bg-[#050914] text-white shadow-[inset_0_0_15px_rgba(0,0,0,1)]">
+                    ref={mockupRef}
+                    className="iphone-bezel relative flex h-145 w-70 transform-style-3d flex-col rounded-[3rem] will-change-transform"
+                  >
                     <div
-                      className="screen-glare pointer-events-none absolute inset-0 z-40"
+                      className="hardware-btn absolute top-[120px] -left-[3px] z-0 h-[25px] w-[3px] rounded-l-md"
+                      aria-hidden="true"
+                    />
+                    <div
+                      className="hardware-btn absolute top-[160px] -left-[3px] z-0 h-[45px] w-[3px] rounded-l-md"
+                      aria-hidden="true"
+                    />
+                    <div
+                      className="hardware-btn absolute top-[220px] -left-[3px] z-0 h-[45px] w-[3px] rounded-l-md"
+                      aria-hidden="true"
+                    />
+                    <div
+                      className="hardware-btn absolute top-[170px] -right-[3px] z-0 h-[70px] w-[3px] scale-x-[-1] rounded-r-md"
                       aria-hidden="true"
                     />
 
-                    <div className="absolute top-[5px] left-1/2 z-50 flex h-[28px] w-[100px] -translate-x-1/2 items-center justify-end rounded-full bg-black px-3 shadow-[inset_0_-1px_2px_rgba(255,255,255,0.1)]">
-                      <div className="h-1.5 w-1.5 animate-pulse rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.8)]" />
-                    </div>
+                    <div className="absolute inset-1.75 z-10 overflow-hidden rounded-[2.5rem] bg-[#050914] text-white shadow-[inset_0_0_15px_rgba(0,0,0,1)]">
+                      <div
+                        className="screen-glare pointer-events-none absolute inset-0 z-40"
+                        aria-hidden="true"
+                      />
 
-                    <div className="relative flex h-full w-full flex-col px-5 pt-12 pb-8">
-                      <div className="phone-widget mb-8 flex items-center justify-between">
-                        <div className="flex flex-col">
-                          <span className="mb-1 text-[10px] font-bold tracking-widest text-neutral-400 uppercase">
-                            {t("hero.today")}
-                          </span>
-                          <span className="text-xl font-bold tracking-tight text-white drop-shadow-md">
-                            {t("hero.plan")}
-                          </span>
-                        </div>
-                        <div className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-sm font-bold text-neutral-200 shadow-lg shadow-black/50">
-                          FT
-                        </div>
+                      <div className="absolute top-[5px] left-1/2 z-50 flex h-[28px] w-[100px] -translate-x-1/2 items-center justify-end rounded-full bg-black px-3 shadow-[inset_0_-1px_2px_rgba(255,255,255,0.1)]">
+                        <div className="h-1.5 w-1.5 animate-pulse rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.8)]" />
                       </div>
 
-                      <div className="phone-widget relative mx-auto mb-8 flex h-44 w-44 items-center justify-center drop-shadow-[0_15px_25px_rgba(0,0,0,0.8)]">
-                        <svg
-                          className="absolute inset-0 h-full w-full"
-                          aria-hidden="true"
-                        >
-                          <circle
-                            cx="88"
-                            cy="88"
-                            r="64"
-                            fill="none"
-                            stroke="rgba(255,255,255,0.03)"
-                            strokeWidth="12"
-                          />
-                          <circle
-                            className="progress-ring"
-                            cx="88"
-                            cy="88"
-                            r="64"
-                            fill="none"
-                            stroke="#3B82F6"
-                            strokeWidth="12"
-                          />
-                        </svg>
-                        <div className="z-10 flex flex-col items-center text-center">
-                          <span className="counter-val text-4xl font-extrabold tracking-tighter text-white">
-                            0
-                          </span>
-                          <span className="mt-0.5 text-[8px] font-bold tracking-widest text-blue-200/50 uppercase">
-                            {resolvedMetricLabel}
-                          </span>
+                      <div className="relative flex h-full w-full flex-col px-5 pt-12 pb-8">
+                        <div className="phone-widget mb-8 flex items-center justify-between">
+                          <div className="flex flex-col">
+                            <span className="mb-1 text-[10px] font-bold tracking-widest text-neutral-400 uppercase">
+                              {t("hero.today")}
+                            </span>
+                            <span className="text-xl font-bold tracking-tight text-white drop-shadow-md">
+                              {t("hero.plan")}
+                            </span>
+                          </div>
+                          <div className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-sm font-bold text-neutral-200 shadow-lg shadow-black/50">
+                            FT
+                          </div>
                         </div>
-                      </div>
 
-                      <div className="space-y-3">
-                        <div className="phone-widget widget-depth flex items-center rounded-2xl p-3">
-                          <div className="mr-3 flex h-10 w-10 items-center justify-center rounded-xl border border-blue-400/20 bg-linear-to-br from-blue-500/20 to-blue-600/5 shadow-inner">
-                            <svg
-                              className="h-4 w-4 text-blue-400 drop-shadow-md"
+                        <div className="phone-widget relative mx-auto mb-8 flex h-44 w-44 items-center justify-center drop-shadow-[0_15px_25px_rgba(0,0,0,0.8)]">
+                          <svg
+                            className="absolute inset-0 h-full w-full"
+                            aria-hidden="true"
+                          >
+                            <circle
+                              cx="88"
+                              cy="88"
+                              r="64"
                               fill="none"
-                              stroke="currentColor"
-                              viewBox="0 0 24 24"
-                              aria-hidden="true"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="2"
-                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                              />
-                            </svg>
-                          </div>
-                          <div className="flex-1">
-                            <div className="mb-2 h-2 w-20 rounded-full bg-neutral-300 shadow-inner" />
-                            <div className="h-1.5 w-12 rounded-full bg-neutral-600 shadow-inner" />
-                          </div>
-                        </div>
-                        <div className="phone-widget widget-depth flex items-center rounded-2xl p-3">
-                          <div className="mr-3 flex h-10 w-10 items-center justify-center rounded-xl border border-emerald-400/20 bg-linear-to-br from-emerald-500/20 to-emerald-600/5 shadow-inner">
-                            <svg
-                              className="h-4 w-4 text-emerald-400 drop-shadow-md"
+                              stroke="rgba(255,255,255,0.03)"
+                              strokeWidth="12"
+                            />
+                            <circle
+                              className="progress-ring"
+                              cx="88"
+                              cy="88"
+                              r="64"
                               fill="none"
-                              stroke="currentColor"
-                              viewBox="0 0 24 24"
-                              aria-hidden="true"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="2"
-                                d="M5 13l4 4L19 7"
-                              />
-                            </svg>
-                          </div>
-                          <div className="flex-1">
-                            <div className="mb-2 h-2 w-16 rounded-full bg-neutral-300 shadow-inner" />
-                            <div className="h-1.5 w-24 rounded-full bg-neutral-600 shadow-inner" />
+                              stroke="#3B82F6"
+                              strokeWidth="12"
+                            />
+                          </svg>
+                          <div className="z-10 flex flex-col items-center text-center">
+                            <span className="counter-val text-4xl font-extrabold tracking-tighter text-white">
+                              0
+                            </span>
+                            <span className="mt-0.5 text-[8px] font-bold tracking-widest text-blue-200/50 uppercase">
+                              {resolvedMetricLabel}
+                            </span>
                           </div>
                         </div>
-                      </div>
 
-                      <div className="absolute bottom-2 left-1/2 h-1 w-30 -translate-x-1/2 rounded-full bg-white/20 shadow-[0_1px_2px_rgba(0,0,0,0.5)]" />
+                        <div className="space-y-3">
+                          <div className="phone-widget widget-depth flex items-center rounded-2xl p-3">
+                            <div className="mr-3 flex h-10 w-10 items-center justify-center rounded-xl border border-blue-400/20 bg-linear-to-br from-blue-500/20 to-blue-600/5 shadow-inner">
+                              <svg
+                                className="h-4 w-4 text-blue-400 drop-shadow-md"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                                aria-hidden="true"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth="2"
+                                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                                />
+                              </svg>
+                            </div>
+                            <div className="flex-1">
+                              <div className="mb-2 h-2 w-20 rounded-full bg-neutral-300 shadow-inner" />
+                              <div className="h-1.5 w-12 rounded-full bg-neutral-600 shadow-inner" />
+                            </div>
+                          </div>
+                          <div className="phone-widget widget-depth flex items-center rounded-2xl p-3">
+                            <div className="mr-3 flex h-10 w-10 items-center justify-center rounded-xl border border-emerald-400/20 bg-linear-to-br from-emerald-500/20 to-emerald-600/5 shadow-inner">
+                              <svg
+                                className="h-4 w-4 text-emerald-400 drop-shadow-md"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                                aria-hidden="true"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth="2"
+                                  d="M5 13l4 4L19 7"
+                                />
+                              </svg>
+                            </div>
+                            <div className="flex-1">
+                              <div className="mb-2 h-2 w-16 rounded-full bg-neutral-300 shadow-inner" />
+                              <div className="h-1.5 w-24 rounded-full bg-neutral-600 shadow-inner" />
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="absolute bottom-2 left-1/2 h-1 w-30 -translate-x-1/2 rounded-full bg-white/20 shadow-[0_1px_2px_rgba(0,0,0,0.5)]" />
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                <div className="floating-badge floating-ui-badge absolute top-6 left-3.75 z-30 flex items-center gap-3 rounded-xl p-3 lg:top-12 lg:-left-20 lg:gap-4 lg:rounded-2xl lg:p-4">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full border border-blue-400/30 bg-linear-to-b from-blue-500/20 to-blue-900/10 shadow-inner lg:h-10 lg:w-10">
-                    <span
-                      className="text-base drop-shadow-lg lg:text-xl"
-                      aria-hidden="true"
-                    >
-                      🔥
-                    </span>
+                  <div className="floating-badge floating-ui-badge absolute top-6 left-3.75 z-30 flex items-center gap-3 rounded-xl p-3 lg:top-12 lg:-left-20 lg:gap-4 lg:rounded-2xl lg:p-4">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-full border border-blue-400/30 bg-linear-to-b from-blue-500/20 to-blue-900/10 shadow-inner lg:h-10 lg:w-10">
+                      <span
+                        className="text-base drop-shadow-lg lg:text-xl"
+                        aria-hidden="true"
+                      >
+                        🔥
+                      </span>
+                    </div>
+                    <div>
+                      <p className="text-xs font-bold tracking-tight text-white lg:text-sm">
+                        {t("hero.streakTitle")}
+                      </p>
+                      <p className="text-[10px] font-medium text-blue-200/50 lg:text-xs">
+                        {t("hero.streakSubtitle")}
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="text-xs font-bold tracking-tight text-white lg:text-sm">
-                      {t("hero.streakTitle")}
-                    </p>
-                    <p className="text-[10px] font-medium text-blue-200/50 lg:text-xs">
-                      {t("hero.streakSubtitle")}
-                    </p>
-                  </div>
-                </div>
 
-                <div className="floating-badge floating-ui-badge absolute -right-3.75 bottom-12 z-30 flex items-center gap-3 rounded-xl p-3 lg:-right-20 lg:bottom-20 lg:gap-4 lg:rounded-2xl lg:p-4">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full border border-indigo-400/30 bg-linear-to-b from-indigo-500/20 to-indigo-900/10 shadow-inner lg:h-10 lg:w-10">
-                    <span
-                      className="text-base drop-shadow-lg lg:text-lg"
-                      aria-hidden="true"
-                    >
-                      💪
-                    </span>
-                  </div>
-                  <div>
-                    <p className="text-xs font-bold tracking-tight text-white lg:text-sm">
-                      {t("hero.planReady")}
-                    </p>
-                    <p className="text-[10px] font-medium text-blue-200/50 lg:text-xs">
-                      {t("hero.planReadySubtitle")}
-                    </p>
+                  <div className="floating-badge floating-ui-badge absolute -right-3.75 bottom-12 z-30 flex items-center gap-3 rounded-xl p-3 lg:-right-20 lg:bottom-20 lg:gap-4 lg:rounded-2xl lg:p-4">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-full border border-indigo-400/30 bg-linear-to-b from-indigo-500/20 to-indigo-900/10 shadow-inner lg:h-10 lg:w-10">
+                      <span
+                        className="text-base drop-shadow-lg lg:text-lg"
+                        aria-hidden="true"
+                      >
+                        💪
+                      </span>
+                    </div>
+                    <div>
+                      <p className="text-xs font-bold tracking-tight text-white lg:text-sm">
+                        {t("hero.planReady")}
+                      </p>
+                      <p className="text-[10px] font-medium text-blue-200/50 lg:text-xs">
+                        {t("hero.planReadySubtitle")}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div className="card-left-text gsap-reveal order-3 z-20 flex w-full flex-col justify-center px-4 text-center lg:order-1 lg:max-w-none lg:px-0 lg:text-left">
-              <h3 className="mb-0 text-2xl font-bold tracking-tight text-white md:text-3xl lg:mb-5 lg:text-4xl">
-                {resolvedCardHeading}
-              </h3>
-              <p className="mx-auto hidden max-w-sm text-sm font-normal leading-relaxed text-blue-100/70 md:block md:text-base lg:mx-0 lg:max-w-none lg:text-lg">
-                {resolvedCardDescription}
-              </p>
+              <div className="card-left-text gsap-reveal order-3 z-20 flex w-full flex-col justify-center px-4 text-center lg:order-1 lg:max-w-none lg:px-0 lg:text-left">
+                <h3 className="mb-0 text-2xl font-bold tracking-tight text-white md:text-3xl lg:mb-5 lg:text-4xl">
+                  {resolvedCardHeading}
+                </h3>
+                <p className="mx-auto hidden max-w-sm text-sm font-normal leading-relaxed text-blue-100/70 md:block md:text-base lg:mx-0 lg:max-w-none lg:text-lg">
+                  {resolvedCardDescription}
+                </p>
+              </div>
             </div>
           </div>
-        </div>
         </div>
 
         <div className="nutrition-stage pointer-events-none absolute inset-0 z-20 flex items-center justify-center">
-        <div
-          ref={nutritionCardRef}
-          className="nutrition-card premium-depth-card-green relative flex h-[92vh] w-[92vw] items-center justify-center overflow-hidden rounded-[32px] pointer-events-auto md:h-[85vh] md:w-[85vw] md:rounded-[40px]"
-        >
-          <div className="card-sheen" aria-hidden="true" />
+          <div
+            ref={nutritionCardRef}
+            className="nutrition-card premium-depth-card-green relative flex h-[92vh] w-[92vw] items-center justify-center overflow-hidden rounded-[32px] pointer-events-auto md:h-[85vh] md:w-[85vw] md:rounded-[40px]"
+          >
+            <div className="card-sheen" aria-hidden="true" />
 
-          <div className="relative z-10 mx-auto flex h-full w-full max-w-7xl flex-col items-center justify-evenly px-4 py-6 lg:grid lg:grid-cols-3 lg:gap-8 lg:px-12 lg:py-0">
-            <div className="nutrition-right-text gsap-reveal order-1 z-20 flex w-full justify-center lg:order-3 lg:justify-end">
-              <h2 className="text-card-silver-matte text-6xl font-black tracking-tighter uppercase md:text-[6rem] lg:mt-0 lg:text-[8rem]">
-                {brandName}
-              </h2>
-            </div>
+            <div className="relative z-10 mx-auto flex h-full w-full max-w-7xl flex-col items-center justify-evenly px-4 py-6 lg:grid lg:grid-cols-3 lg:gap-8 lg:px-12 lg:py-0">
+              <div className="nutrition-right-text gsap-reveal order-1 z-20 flex w-full justify-center lg:order-3 lg:justify-end">
+                <h2 className="text-card-silver-matte text-6xl font-black tracking-tighter uppercase md:text-[6rem] lg:mt-0 lg:text-[8rem]">
+                  {brandName}
+                </h2>
+              </div>
 
-            <div
-              className="nutrition-mockup-wrapper relative order-2 z-10 flex h-95 w-full items-center justify-center lg:order-2 lg:h-150"
-              style={{ perspective: "1000px" }}
-            >
-              <div className="relative flex h-full w-full scale-[0.65] transform items-center justify-center md:scale-85 lg:scale-100">
-                <div
-                  ref={nutritionMockupRef}
-                  className="iphone-bezel relative flex h-145 w-70 transform-style-3d flex-col rounded-[3rem] will-change-transform"
-                >
+              <div
+                className="nutrition-mockup-wrapper relative order-2 z-10 flex h-95 w-full items-center justify-center lg:order-2 lg:h-150"
+                style={{ perspective: "1000px" }}
+              >
+                <div className="relative flex h-full w-full scale-[0.65] transform items-center justify-center md:scale-85 lg:scale-100">
                   <div
-                    className="hardware-btn absolute top-[120px] -left-[3px] z-0 h-[25px] w-[3px] rounded-l-md"
-                    aria-hidden="true"
-                  />
-                  <div
-                    className="hardware-btn absolute top-[160px] -left-[3px] z-0 h-[45px] w-[3px] rounded-l-md"
-                    aria-hidden="true"
-                  />
-                  <div
-                    className="hardware-btn absolute top-[220px] -left-[3px] z-0 h-[45px] w-[3px] rounded-l-md"
-                    aria-hidden="true"
-                  />
-                  <div
-                    className="hardware-btn absolute top-[170px] -right-[3px] z-0 h-[70px] w-[3px] scale-x-[-1] rounded-r-md"
-                    aria-hidden="true"
-                  />
-
-                  <div className="absolute inset-1.75 z-10 overflow-hidden rounded-[2.5rem] bg-[#050e0a] text-white shadow-[inset_0_0_15px_rgba(0,0,0,1)]">
+                    ref={nutritionMockupRef}
+                    className="iphone-bezel relative flex h-145 w-70 transform-style-3d flex-col rounded-[3rem] will-change-transform"
+                  >
                     <div
-                      className="screen-glare pointer-events-none absolute inset-0 z-40"
+                      className="hardware-btn absolute top-[120px] -left-[3px] z-0 h-[25px] w-[3px] rounded-l-md"
+                      aria-hidden="true"
+                    />
+                    <div
+                      className="hardware-btn absolute top-[160px] -left-[3px] z-0 h-[45px] w-[3px] rounded-l-md"
+                      aria-hidden="true"
+                    />
+                    <div
+                      className="hardware-btn absolute top-[220px] -left-[3px] z-0 h-[45px] w-[3px] rounded-l-md"
+                      aria-hidden="true"
+                    />
+                    <div
+                      className="hardware-btn absolute top-[170px] -right-[3px] z-0 h-[70px] w-[3px] scale-x-[-1] rounded-r-md"
                       aria-hidden="true"
                     />
 
-                    <div className="absolute top-[5px] left-1/2 z-50 flex h-[28px] w-[100px] -translate-x-1/2 items-center justify-end rounded-full bg-black px-3 shadow-[inset_0_-1px_2px_rgba(255,255,255,0.1)]">
-                      <div className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(46,230,166,0.8)]" />
-                    </div>
+                    <div className="absolute inset-1.75 z-10 overflow-hidden rounded-[2.5rem] bg-[#050e0a] text-white shadow-[inset_0_0_15px_rgba(0,0,0,1)]">
+                      <div
+                        className="screen-glare pointer-events-none absolute inset-0 z-40"
+                        aria-hidden="true"
+                      />
 
-                    <div className="relative flex h-full w-full flex-col px-5 pt-12 pb-8">
-                      <div className="nutrition-widget mb-5 flex items-center justify-between">
-                        <div className="flex flex-col">
-                          <span className="mb-1 text-[10px] font-bold tracking-widest text-neutral-400 uppercase">
-                            {t("hero.nutritionToday")}
-                          </span>
-                          <span className="text-xl font-bold tracking-tight text-white drop-shadow-md">
-                            {t("hero.nutritionPlan")}
-                          </span>
-                        </div>
-                        <div className="rounded-full border border-emerald-400/20 bg-emerald-500/10 px-2.5 py-1 text-[10px] font-bold tracking-wide text-emerald-300">
-                          {t("hero.nutritionMonth")}
-                        </div>
+                      <div className="absolute top-[5px] left-1/2 z-50 flex h-[28px] w-[100px] -translate-x-1/2 items-center justify-end rounded-full bg-black px-3 shadow-[inset_0_-1px_2px_rgba(255,255,255,0.1)]">
+                        <div className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(46,230,166,0.8)]" />
                       </div>
 
-                      <div className="nutrition-widget mb-5">
-                        <div className="mb-2 grid grid-cols-7 gap-1">
-                          {weekdays.map((label) => (
-                            <span
-                              key={label}
-                              className="text-center text-[8px] font-bold tracking-wider text-neutral-500 uppercase"
-                            >
-                              {label}
+                      <div className="relative flex h-full w-full flex-col px-5 pt-12 pb-8">
+                        <div className="nutrition-widget mb-5 flex items-center justify-between">
+                          <div className="flex flex-col">
+                            <span className="mb-1 text-[10px] font-bold tracking-widest text-neutral-400 uppercase">
+                              {t("hero.nutritionToday")}
                             </span>
-                          ))}
+                            <span className="text-xl font-bold tracking-tight text-white drop-shadow-md">
+                              {t("hero.nutritionPlan")}
+                            </span>
+                          </div>
+                          <div className="rounded-full border border-emerald-400/20 bg-emerald-500/10 px-2.5 py-1 text-[10px] font-bold tracking-wide text-emerald-300">
+                            {t("hero.nutritionMonth")}
+                          </div>
                         </div>
-                        <div className="grid grid-cols-7 gap-1">
-                          {nutritionDays.map((d) => (
-                            <div
-                              key={d.day}
-                              className={cn(
-                                "nutrition-cal-day flex h-9 flex-col items-center justify-center rounded-lg",
-                                d.active && "is-active",
-                                d.marked && "has-meals",
-                              )}
-                            >
+
+                        <div className="nutrition-widget mb-5">
+                          <div className="mb-2 grid grid-cols-7 gap-1">
+                            {weekdays.map((label) => (
                               <span
+                                key={label}
+                                className="text-center text-[8px] font-bold tracking-wider text-neutral-500 uppercase"
+                              >
+                                {label}
+                              </span>
+                            ))}
+                          </div>
+                          <div className="grid grid-cols-7 gap-1">
+                            {nutritionDays.map((d) => (
+                              <div
+                                key={d.day}
                                 className={cn(
-                                  "text-[11px] font-semibold",
-                                  d.active
-                                    ? "text-emerald-200"
-                                    : "text-neutral-300",
+                                  "nutrition-cal-day flex h-9 flex-col items-center justify-center rounded-lg",
+                                  d.active && "is-active",
+                                  d.marked && "has-meals",
                                 )}
                               >
-                                {d.day}
-                              </span>
+                                <span
+                                  className={cn(
+                                    "text-[11px] font-semibold",
+                                    d.active
+                                      ? "text-emerald-200"
+                                      : "text-neutral-300",
+                                  )}
+                                >
+                                  {d.day}
+                                </span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div className="nutrition-widget mb-4 flex items-center justify-between rounded-2xl border border-emerald-400/15 bg-emerald-500/5 px-3 py-2.5">
+                          <div>
+                            <p className="text-[9px] font-bold tracking-widest text-emerald-300/60 uppercase">
+                              {t("hero.nutritionKcal")}
+                            </p>
+                            <p className="text-lg font-extrabold tracking-tight text-white">
+                              1 840
+                            </p>
+                          </div>
+                          <div className="h-8 w-px bg-white/10" />
+                          <div className="text-right">
+                            <p className="text-[9px] font-bold tracking-widest text-emerald-300/60 uppercase">
+                              {t("hero.nutritionProtein")}
+                            </p>
+                            <p className="text-lg font-extrabold tracking-tight text-white">
+                              128g
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="space-y-2.5">
+                          {[
+                            {
+                              title: t("hero.nutritionMeal1"),
+                              meta: t("hero.nutritionMeal1Meta"),
+                            },
+                            {
+                              title: t("hero.nutritionMeal2"),
+                              meta: t("hero.nutritionMeal2Meta"),
+                            },
+                            {
+                              title: t("hero.nutritionMeal3"),
+                              meta: t("hero.nutritionMeal3Meta"),
+                            },
+                          ].map((meal) => (
+                            <div
+                              key={meal.title}
+                              className="nutrition-widget widget-depth flex items-center rounded-2xl p-2.5"
+                            >
+                              <div className="mr-2.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-emerald-400/20 bg-linear-to-br from-emerald-500/25 to-emerald-600/5 shadow-inner">
+                                <svg
+                                  className="h-3.5 w-3.5 text-emerald-400 drop-shadow-md"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  viewBox="0 0 24 24"
+                                  aria-hidden="true"
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth="2"
+                                    d="M12 6v6l4 2"
+                                  />
+                                  <circle
+                                    cx="12"
+                                    cy="12"
+                                    r="9"
+                                    strokeWidth="2"
+                                  />
+                                </svg>
+                              </div>
+                              <div className="min-w-0 flex-1">
+                                <p className="truncate text-[11px] font-semibold text-white">
+                                  {meal.title}
+                                </p>
+                                <p className="truncate text-[9px] text-emerald-200/45">
+                                  {meal.meta}
+                                </p>
+                              </div>
                             </div>
                           ))}
                         </div>
-                      </div>
 
-                      <div className="nutrition-widget mb-4 flex items-center justify-between rounded-2xl border border-emerald-400/15 bg-emerald-500/5 px-3 py-2.5">
-                        <div>
-                          <p className="text-[9px] font-bold tracking-widest text-emerald-300/60 uppercase">
-                            {t("hero.nutritionKcal")}
-                          </p>
-                          <p className="text-lg font-extrabold tracking-tight text-white">
-                            1 840
-                          </p>
-                        </div>
-                        <div className="h-8 w-px bg-white/10" />
-                        <div className="text-right">
-                          <p className="text-[9px] font-bold tracking-widest text-emerald-300/60 uppercase">
-                            {t("hero.nutritionProtein")}
-                          </p>
-                          <p className="text-lg font-extrabold tracking-tight text-white">
-                            128g
-                          </p>
-                        </div>
+                        <div className="absolute bottom-2 left-1/2 h-1 w-30 -translate-x-1/2 rounded-full bg-white/20 shadow-[0_1px_2px_rgba(0,0,0,0.5)]" />
                       </div>
-
-                      <div className="space-y-2.5">
-                        {[
-                          {
-                            title: t("hero.nutritionMeal1"),
-                            meta: t("hero.nutritionMeal1Meta"),
-                          },
-                          {
-                            title: t("hero.nutritionMeal2"),
-                            meta: t("hero.nutritionMeal2Meta"),
-                          },
-                          {
-                            title: t("hero.nutritionMeal3"),
-                            meta: t("hero.nutritionMeal3Meta"),
-                          },
-                        ].map((meal) => (
-                          <div
-                            key={meal.title}
-                            className="nutrition-widget widget-depth flex items-center rounded-2xl p-2.5"
-                          >
-                            <div className="mr-2.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-emerald-400/20 bg-linear-to-br from-emerald-500/25 to-emerald-600/5 shadow-inner">
-                              <svg
-                                className="h-3.5 w-3.5 text-emerald-400 drop-shadow-md"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                                aria-hidden="true"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  strokeWidth="2"
-                                  d="M12 6v6l4 2"
-                                />
-                                <circle cx="12" cy="12" r="9" strokeWidth="2" />
-                              </svg>
-                            </div>
-                            <div className="min-w-0 flex-1">
-                              <p className="truncate text-[11px] font-semibold text-white">
-                                {meal.title}
-                              </p>
-                              <p className="truncate text-[9px] text-emerald-200/45">
-                                {meal.meta}
-                              </p>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-
-                      <div className="absolute bottom-2 left-1/2 h-1 w-30 -translate-x-1/2 rounded-full bg-white/20 shadow-[0_1px_2px_rgba(0,0,0,0.5)]" />
                     </div>
                   </div>
-                </div>
 
-                <div className="nutrition-badge floating-ui-badge absolute top-6 left-3.75 z-30 flex items-center gap-3 rounded-xl p-3 lg:top-12 lg:-left-20 lg:gap-4 lg:rounded-2xl lg:p-4">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full border border-emerald-400/30 bg-linear-to-b from-emerald-500/20 to-emerald-900/10 shadow-inner lg:h-10 lg:w-10">
-                    <span
-                      className="text-base drop-shadow-lg lg:text-xl"
-                      aria-hidden="true"
-                    >
-                      🥗
-                    </span>
+                  <div className="nutrition-badge floating-ui-badge absolute top-6 left-3.75 z-30 flex items-center gap-3 rounded-xl p-3 lg:top-12 lg:-left-20 lg:gap-4 lg:rounded-2xl lg:p-4">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-full border border-emerald-400/30 bg-linear-to-b from-emerald-500/20 to-emerald-900/10 shadow-inner lg:h-10 lg:w-10">
+                      <span
+                        className="text-base drop-shadow-lg lg:text-xl"
+                        aria-hidden="true"
+                      >
+                        🥗
+                      </span>
+                    </div>
+                    <div>
+                      <p className="text-xs font-bold tracking-tight text-white lg:text-sm">
+                        {t("hero.nutritionBadgeCals")}
+                      </p>
+                      <p className="text-[10px] font-medium text-emerald-200/50 lg:text-xs">
+                        {t("hero.nutritionBadgeCalsSub")}
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="text-xs font-bold tracking-tight text-white lg:text-sm">
-                      {t("hero.nutritionBadgeCals")}
-                    </p>
-                    <p className="text-[10px] font-medium text-emerald-200/50 lg:text-xs">
-                      {t("hero.nutritionBadgeCalsSub")}
-                    </p>
-                  </div>
-                </div>
 
-                <div className="nutrition-badge floating-ui-badge absolute -right-3.75 bottom-12 z-30 flex items-center gap-3 rounded-xl p-3 lg:-right-20 lg:bottom-20 lg:gap-4 lg:rounded-2xl lg:p-4">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full border border-teal-400/30 bg-linear-to-b from-teal-500/20 to-teal-900/10 shadow-inner lg:h-10 lg:w-10">
-                    <span
-                      className="text-base drop-shadow-lg lg:text-lg"
-                      aria-hidden="true"
-                    >
-                      🍽️
-                    </span>
-                  </div>
-                  <div>
-                    <p className="text-xs font-bold tracking-tight text-white lg:text-sm">
-                      {t("hero.nutritionBadgeMeals")}
-                    </p>
-                    <p className="text-[10px] font-medium text-emerald-200/50 lg:text-xs">
-                      {t("hero.nutritionBadgeMealsSub")}
-                    </p>
+                  <div className="nutrition-badge floating-ui-badge absolute -right-3.75 bottom-12 z-30 flex items-center gap-3 rounded-xl p-3 lg:-right-20 lg:bottom-20 lg:gap-4 lg:rounded-2xl lg:p-4">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-full border border-teal-400/30 bg-linear-to-b from-teal-500/20 to-teal-900/10 shadow-inner lg:h-10 lg:w-10">
+                      <span
+                        className="text-base drop-shadow-lg lg:text-lg"
+                        aria-hidden="true"
+                      >
+                        🍽️
+                      </span>
+                    </div>
+                    <div>
+                      <p className="text-xs font-bold tracking-tight text-white lg:text-sm">
+                        {t("hero.nutritionBadgeMeals")}
+                      </p>
+                      <p className="text-[10px] font-medium text-emerald-200/50 lg:text-xs">
+                        {t("hero.nutritionBadgeMealsSub")}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div className="nutrition-left-text gsap-reveal order-3 z-20 flex w-full flex-col justify-center px-4 text-center lg:order-1 lg:max-w-none lg:px-0 lg:text-left">
-              <h3 className="mb-0 text-2xl font-bold tracking-tight text-white md:text-3xl lg:mb-5 lg:text-4xl">
-                {t("hero.nutritionCardHeading")}
-              </h3>
-              <p className="mx-auto hidden max-w-sm text-sm font-normal leading-relaxed text-emerald-100/70 md:block md:text-base lg:mx-0 lg:max-w-none lg:text-lg">
-                {t("hero.nutritionCardDescription")}
-              </p>
+              <div className="nutrition-left-text gsap-reveal order-3 z-20 flex w-full flex-col justify-center px-4 text-center lg:order-1 lg:max-w-none lg:px-0 lg:text-left">
+                <h3 className="mb-0 text-2xl font-bold tracking-tight text-white md:text-3xl lg:mb-5 lg:text-4xl">
+                  {t("hero.nutritionCardHeading")}
+                </h3>
+                <p className="mx-auto hidden max-w-sm text-sm font-normal leading-relaxed text-emerald-100/70 md:block md:text-base lg:mx-0 lg:max-w-none lg:text-lg">
+                  {t("hero.nutritionCardDescription")}
+                </p>
+              </div>
             </div>
           </div>
-        </div>
         </div>
 
         <div className="workout-stage pointer-events-none absolute inset-0 z-10 flex items-center justify-center">
-        <div
-          ref={workoutCardRef}
-          className="workout-card premium-depth-card-ember relative flex h-[92vh] w-[92vw] items-center justify-center overflow-hidden rounded-[32px] pointer-events-auto md:h-[85vh] md:w-[85vw] md:rounded-[40px]"
-        >
-          <div className="card-sheen" aria-hidden="true" />
+          <div
+            ref={workoutCardRef}
+            className="workout-card premium-depth-card-ember relative flex h-[92vh] w-[92vw] items-center justify-center overflow-hidden rounded-[32px] pointer-events-auto md:h-[85vh] md:w-[85vw] md:rounded-[40px]"
+          >
+            <div className="card-sheen" aria-hidden="true" />
 
-          <div className="relative z-10 mx-auto flex h-full w-full max-w-7xl flex-col items-center justify-evenly px-4 py-6 lg:grid lg:grid-cols-3 lg:gap-8 lg:px-12 lg:py-0">
-            <div className="workout-right-text gsap-reveal order-1 z-20 flex w-full justify-center lg:order-3 lg:justify-end">
-              <h2 className="text-card-silver-matte text-6xl font-black tracking-tighter uppercase md:text-[6rem] lg:mt-0 lg:text-[8rem]">
-                {brandName}
-              </h2>
-            </div>
+            <div className="relative z-10 mx-auto flex h-full w-full max-w-7xl flex-col items-center justify-evenly px-4 py-6 lg:grid lg:grid-cols-3 lg:gap-8 lg:px-12 lg:py-0">
+              <div className="workout-right-text gsap-reveal order-1 z-20 flex w-full justify-center lg:order-3 lg:justify-end">
+                <h2 className="text-card-silver-matte text-6xl font-black tracking-tighter uppercase md:text-[6rem] lg:mt-0 lg:text-[8rem]">
+                  {brandName}
+                </h2>
+              </div>
 
-            <div
-              className="workout-mockup-wrapper relative order-2 z-10 flex h-95 w-full items-center justify-center lg:order-2 lg:h-150"
-              style={{ perspective: "1000px" }}
-            >
-              <div className="relative flex h-full w-full scale-[0.65] transform items-center justify-center md:scale-85 lg:scale-100">
-                <div
-                  ref={workoutMockupRef}
-                  className="iphone-bezel relative flex h-145 w-70 transform-style-3d flex-col rounded-[3rem] will-change-transform"
-                >
+              <div
+                className="workout-mockup-wrapper relative order-2 z-10 flex h-95 w-full items-center justify-center lg:order-2 lg:h-150"
+                style={{ perspective: "1000px" }}
+              >
+                <div className="relative flex h-full w-full scale-[0.65] transform items-center justify-center md:scale-85 lg:scale-100">
                   <div
-                    className="hardware-btn absolute top-[120px] -left-[3px] z-0 h-[25px] w-[3px] rounded-l-md"
-                    aria-hidden="true"
-                  />
-                  <div
-                    className="hardware-btn absolute top-[160px] -left-[3px] z-0 h-[45px] w-[3px] rounded-l-md"
-                    aria-hidden="true"
-                  />
-                  <div
-                    className="hardware-btn absolute top-[220px] -left-[3px] z-0 h-[45px] w-[3px] rounded-l-md"
-                    aria-hidden="true"
-                  />
-                  <div
-                    className="hardware-btn absolute top-[170px] -right-[3px] z-0 h-[70px] w-[3px] scale-x-[-1] rounded-r-md"
-                    aria-hidden="true"
-                  />
-
-                  <div className="absolute inset-1.75 z-10 overflow-hidden rounded-[2.5rem] bg-[#100805] text-white shadow-[inset_0_0_15px_rgba(0,0,0,1)]">
+                    ref={workoutMockupRef}
+                    className="iphone-bezel relative flex h-145 w-70 transform-style-3d flex-col rounded-[3rem] will-change-transform"
+                  >
                     <div
-                      className="screen-glare pointer-events-none absolute inset-0 z-40"
+                      className="hardware-btn absolute top-[120px] -left-[3px] z-0 h-[25px] w-[3px] rounded-l-md"
+                      aria-hidden="true"
+                    />
+                    <div
+                      className="hardware-btn absolute top-[160px] -left-[3px] z-0 h-[45px] w-[3px] rounded-l-md"
+                      aria-hidden="true"
+                    />
+                    <div
+                      className="hardware-btn absolute top-[220px] -left-[3px] z-0 h-[45px] w-[3px] rounded-l-md"
+                      aria-hidden="true"
+                    />
+                    <div
+                      className="hardware-btn absolute top-[170px] -right-[3px] z-0 h-[70px] w-[3px] scale-x-[-1] rounded-r-md"
                       aria-hidden="true"
                     />
 
-                    <div className="absolute top-[5px] left-1/2 z-50 flex h-[28px] w-[100px] -translate-x-1/2 items-center justify-end rounded-full bg-black px-3 shadow-[inset_0_-1px_2px_rgba(255,255,255,0.1)]">
-                      <div className="h-1.5 w-1.5 animate-pulse rounded-full bg-orange-400 shadow-[0_0_8px_rgba(255,90,60,0.8)]" />
-                    </div>
+                    <div className="absolute inset-1.75 z-10 overflow-hidden rounded-[2.5rem] bg-[#100805] text-white shadow-[inset_0_0_15px_rgba(0,0,0,1)]">
+                      <div
+                        className="screen-glare pointer-events-none absolute inset-0 z-40"
+                        aria-hidden="true"
+                      />
 
-                    <div className="relative flex h-full w-full flex-col px-5 pt-12 pb-8">
-                      <div className="workout-widget mb-5 flex items-center justify-between">
-                        <div className="flex flex-col">
-                          <span className="mb-1 text-[10px] font-bold tracking-widest text-neutral-400 uppercase">
-                            {t("hero.workoutToday")}
-                          </span>
-                          <span className="text-xl font-bold tracking-tight text-white drop-shadow-md">
-                            {t("hero.workoutPlan")}
-                          </span>
-                        </div>
-                        <div className="rounded-full border border-orange-400/25 bg-orange-500/10 px-2.5 py-1 text-[10px] font-bold tracking-wide text-orange-300">
-                          {t("hero.workoutMonth")}
-                        </div>
+                      <div className="absolute top-[5px] left-1/2 z-50 flex h-[28px] w-[100px] -translate-x-1/2 items-center justify-end rounded-full bg-black px-3 shadow-[inset_0_-1px_2px_rgba(255,255,255,0.1)]">
+                        <div className="h-1.5 w-1.5 animate-pulse rounded-full bg-orange-400 shadow-[0_0_8px_rgba(255,90,60,0.8)]" />
                       </div>
 
-                      <div className="workout-widget mb-5">
-                        <div className="mb-2 grid grid-cols-7 gap-1">
-                          {weekdays.map((label) => (
-                            <span
-                              key={`w-${label}`}
-                              className="text-center text-[8px] font-bold tracking-wider text-neutral-500 uppercase"
-                            >
-                              {label}
+                      <div className="relative flex h-full w-full flex-col px-5 pt-12 pb-8">
+                        <div className="workout-widget mb-5 flex items-center justify-between">
+                          <div className="flex flex-col">
+                            <span className="mb-1 text-[10px] font-bold tracking-widest text-neutral-400 uppercase">
+                              {t("hero.workoutToday")}
                             </span>
-                          ))}
+                            <span className="text-xl font-bold tracking-tight text-white drop-shadow-md">
+                              {t("hero.workoutPlan")}
+                            </span>
+                          </div>
+                          <div className="rounded-full border border-orange-400/25 bg-orange-500/10 px-2.5 py-1 text-[10px] font-bold tracking-wide text-orange-300">
+                            {t("hero.workoutMonth")}
+                          </div>
                         </div>
-                        <div className="grid grid-cols-7 gap-1">
-                          {workoutDays.map((d) => (
-                            <div
-                              key={`w-${d.day}`}
-                              className={cn(
-                                "workout-cal-day flex h-9 flex-col items-center justify-center rounded-lg",
-                                d.active && "is-active",
-                                d.marked && "has-sessions",
-                              )}
-                            >
+
+                        <div className="workout-widget mb-5">
+                          <div className="mb-2 grid grid-cols-7 gap-1">
+                            {weekdays.map((label) => (
                               <span
+                                key={`w-${label}`}
+                                className="text-center text-[8px] font-bold tracking-wider text-neutral-500 uppercase"
+                              >
+                                {label}
+                              </span>
+                            ))}
+                          </div>
+                          <div className="grid grid-cols-7 gap-1">
+                            {workoutDays.map((d) => (
+                              <div
+                                key={`w-${d.day}`}
                                 className={cn(
-                                  "text-[11px] font-semibold",
-                                  d.active
-                                    ? "text-orange-200"
-                                    : "text-neutral-300",
+                                  "workout-cal-day flex h-9 flex-col items-center justify-center rounded-lg",
+                                  d.active && "is-active",
+                                  d.marked && "has-sessions",
                                 )}
                               >
-                                {d.day}
-                              </span>
+                                <span
+                                  className={cn(
+                                    "text-[11px] font-semibold",
+                                    d.active
+                                      ? "text-orange-200"
+                                      : "text-neutral-300",
+                                  )}
+                                >
+                                  {d.day}
+                                </span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div className="workout-widget mb-4 flex items-center justify-between rounded-2xl border border-orange-400/15 bg-orange-500/5 px-3 py-2.5">
+                          <div>
+                            <p className="text-[9px] font-bold tracking-widest text-orange-300/60 uppercase">
+                              {t("hero.workoutSessions")}
+                            </p>
+                            <p className="text-lg font-extrabold tracking-tight text-white">
+                              4
+                            </p>
+                          </div>
+                          <div className="h-8 w-px bg-white/10" />
+                          <div className="text-right">
+                            <p className="text-[9px] font-bold tracking-widest text-orange-300/60 uppercase">
+                              {t("hero.workoutMinutes")}
+                            </p>
+                            <p className="text-lg font-extrabold tracking-tight text-white">
+                              280
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="space-y-2.5">
+                          {[
+                            {
+                              title: t("hero.workoutSession1"),
+                              meta: t("hero.workoutSession1Meta"),
+                            },
+                            {
+                              title: t("hero.workoutSession2"),
+                              meta: t("hero.workoutSession2Meta"),
+                            },
+                            {
+                              title: t("hero.workoutSession3"),
+                              meta: t("hero.workoutSession3Meta"),
+                            },
+                          ].map((session) => (
+                            <div
+                              key={session.title}
+                              className="workout-widget widget-depth flex items-center rounded-2xl p-2.5"
+                            >
+                              <div className="mr-2.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-orange-400/25 bg-linear-to-br from-orange-500/25 to-orange-700/5 shadow-inner">
+                                <svg
+                                  className="h-3.5 w-3.5 text-orange-400 drop-shadow-md"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  viewBox="0 0 24 24"
+                                  aria-hidden="true"
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth="2"
+                                    d="M13 10V3L4 14h7v7l9-11h-7z"
+                                  />
+                                </svg>
+                              </div>
+                              <div className="min-w-0 flex-1">
+                                <p className="truncate text-[11px] font-semibold text-white">
+                                  {session.title}
+                                </p>
+                                <p className="truncate text-[9px] text-orange-200/45">
+                                  {session.meta}
+                                </p>
+                              </div>
                             </div>
                           ))}
                         </div>
-                      </div>
 
-                      <div className="workout-widget mb-4 flex items-center justify-between rounded-2xl border border-orange-400/15 bg-orange-500/5 px-3 py-2.5">
-                        <div>
-                          <p className="text-[9px] font-bold tracking-widest text-orange-300/60 uppercase">
-                            {t("hero.workoutSessions")}
-                          </p>
-                          <p className="text-lg font-extrabold tracking-tight text-white">
-                            4
-                          </p>
-                        </div>
-                        <div className="h-8 w-px bg-white/10" />
-                        <div className="text-right">
-                          <p className="text-[9px] font-bold tracking-widest text-orange-300/60 uppercase">
-                            {t("hero.workoutMinutes")}
-                          </p>
-                          <p className="text-lg font-extrabold tracking-tight text-white">
-                            280
-                          </p>
-                        </div>
+                        <div className="absolute bottom-2 left-1/2 h-1 w-30 -translate-x-1/2 rounded-full bg-white/20 shadow-[0_1px_2px_rgba(0,0,0,0.5)]" />
                       </div>
-
-                      <div className="space-y-2.5">
-                        {[
-                          {
-                            title: t("hero.workoutSession1"),
-                            meta: t("hero.workoutSession1Meta"),
-                          },
-                          {
-                            title: t("hero.workoutSession2"),
-                            meta: t("hero.workoutSession2Meta"),
-                          },
-                          {
-                            title: t("hero.workoutSession3"),
-                            meta: t("hero.workoutSession3Meta"),
-                          },
-                        ].map((session) => (
-                          <div
-                            key={session.title}
-                            className="workout-widget widget-depth flex items-center rounded-2xl p-2.5"
-                          >
-                            <div className="mr-2.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-orange-400/25 bg-linear-to-br from-orange-500/25 to-orange-700/5 shadow-inner">
-                              <svg
-                                className="h-3.5 w-3.5 text-orange-400 drop-shadow-md"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                                aria-hidden="true"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  strokeWidth="2"
-                                  d="M13 10V3L4 14h7v7l9-11h-7z"
-                                />
-                              </svg>
-                            </div>
-                            <div className="min-w-0 flex-1">
-                              <p className="truncate text-[11px] font-semibold text-white">
-                                {session.title}
-                              </p>
-                              <p className="truncate text-[9px] text-orange-200/45">
-                                {session.meta}
-                              </p>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-
-                      <div className="absolute bottom-2 left-1/2 h-1 w-30 -translate-x-1/2 rounded-full bg-white/20 shadow-[0_1px_2px_rgba(0,0,0,0.5)]" />
                     </div>
                   </div>
-                </div>
 
-                <div className="workout-badge floating-ui-badge absolute top-6 left-3.75 z-30 flex items-center gap-3 rounded-xl p-3 lg:top-12 lg:-left-20 lg:gap-4 lg:rounded-2xl lg:p-4">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full border border-orange-400/30 bg-linear-to-b from-orange-500/20 to-orange-900/10 shadow-inner lg:h-10 lg:w-10">
-                    <span
-                      className="text-base drop-shadow-lg lg:text-xl"
-                      aria-hidden="true"
-                    >
-                      🔥
-                    </span>
+                  <div className="workout-badge floating-ui-badge absolute top-6 left-3.75 z-30 flex items-center gap-3 rounded-xl p-3 lg:top-12 lg:-left-20 lg:gap-4 lg:rounded-2xl lg:p-4">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-full border border-orange-400/30 bg-linear-to-b from-orange-500/20 to-orange-900/10 shadow-inner lg:h-10 lg:w-10">
+                      <span
+                        className="text-base drop-shadow-lg lg:text-xl"
+                        aria-hidden="true"
+                      >
+                        🔥
+                      </span>
+                    </div>
+                    <div>
+                      <p className="text-xs font-bold tracking-tight text-white lg:text-sm">
+                        {t("hero.workoutBadgeLoad")}
+                      </p>
+                      <p className="text-[10px] font-medium text-orange-200/50 lg:text-xs">
+                        {t("hero.workoutBadgeLoadSub")}
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="text-xs font-bold tracking-tight text-white lg:text-sm">
-                      {t("hero.workoutBadgeLoad")}
-                    </p>
-                    <p className="text-[10px] font-medium text-orange-200/50 lg:text-xs">
-                      {t("hero.workoutBadgeLoadSub")}
-                    </p>
-                  </div>
-                </div>
 
-                <div className="workout-badge floating-ui-badge absolute -right-3.75 bottom-12 z-30 flex items-center gap-3 rounded-xl p-3 lg:-right-20 lg:bottom-20 lg:gap-4 lg:rounded-2xl lg:p-4">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full border border-red-400/30 bg-linear-to-b from-red-500/20 to-red-900/10 shadow-inner lg:h-10 lg:w-10">
-                    <span
-                      className="text-base drop-shadow-lg lg:text-lg"
-                      aria-hidden="true"
-                    >
-                      ⏱️
-                    </span>
-                  </div>
-                  <div>
-                    <p className="text-xs font-bold tracking-tight text-white lg:text-sm">
-                      {t("hero.workoutBadgeTime")}
-                    </p>
-                    <p className="text-[10px] font-medium text-orange-200/50 lg:text-xs">
-                      {t("hero.workoutBadgeTimeSub")}
-                    </p>
+                  <div className="workout-badge floating-ui-badge absolute -right-3.75 bottom-12 z-30 flex items-center gap-3 rounded-xl p-3 lg:-right-20 lg:bottom-20 lg:gap-4 lg:rounded-2xl lg:p-4">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-full border border-red-400/30 bg-linear-to-b from-red-500/20 to-red-900/10 shadow-inner lg:h-10 lg:w-10">
+                      <span
+                        className="text-base drop-shadow-lg lg:text-lg"
+                        aria-hidden="true"
+                      >
+                        ⏱️
+                      </span>
+                    </div>
+                    <div>
+                      <p className="text-xs font-bold tracking-tight text-white lg:text-sm">
+                        {t("hero.workoutBadgeTime")}
+                      </p>
+                      <p className="text-[10px] font-medium text-orange-200/50 lg:text-xs">
+                        {t("hero.workoutBadgeTimeSub")}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div className="workout-left-text gsap-reveal order-3 z-20 flex w-full flex-col justify-center px-4 text-center lg:order-1 lg:max-w-none lg:px-0 lg:text-left">
-              <h3 className="mb-0 text-2xl font-bold tracking-tight text-white md:text-3xl lg:mb-5 lg:text-4xl">
-                {t("hero.workoutCardHeading")}
-              </h3>
-              <p className="mx-auto hidden max-w-sm text-sm font-normal leading-relaxed text-orange-100/70 md:block md:text-base lg:mx-0 lg:max-w-none lg:text-lg">
-                {t("hero.workoutCardDescription")}
-              </p>
+              <div className="workout-left-text gsap-reveal order-3 z-20 flex w-full flex-col justify-center px-4 text-center lg:order-1 lg:max-w-none lg:px-0 lg:text-left">
+                <h3 className="mb-0 text-2xl font-bold tracking-tight text-white md:text-3xl lg:mb-5 lg:text-4xl">
+                  {t("hero.workoutCardHeading")}
+                </h3>
+                <p className="mx-auto hidden max-w-sm text-sm font-normal leading-relaxed text-orange-100/70 md:block md:text-base lg:mx-0 lg:max-w-none lg:text-lg">
+                  {t("hero.workoutCardDescription")}
+                </p>
+              </div>
             </div>
           </div>
-        </div>
         </div>
       </div>
     </div>

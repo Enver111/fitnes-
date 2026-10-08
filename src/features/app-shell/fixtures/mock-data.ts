@@ -1,24 +1,4 @@
-import type {
-  AppTabItem,
-  ChatMessage,
-  NutritionItem,
-  WorkoutItem,
-} from "../types";
-
-export const mockMessages: ChatMessage[] = [
-  {
-    role: "ai",
-    text: "Привет! Я твой AI-тренер. Расскажи цель — похудение, набор или тонус — и что есть из оборудования.",
-  },
-  {
-    role: "user",
-    text: "Хочу похудеть, тренируюсь дома 3 раза в неделю.",
-  },
-  {
-    role: "ai",
-    text: "Ок. Ниже черновик рациона и домашних тренировок — сохранится в профиле после онбординга.",
-  },
-];
+import type { AppTabItem, NutritionItem, WorkoutItem } from "../types";
 
 export const nutritionItems: NutritionItem[] = [
   { title: "Калории", value: "~1850 ккал / день" },
@@ -33,7 +13,7 @@ export const workoutItems: WorkoutItem[] = [
 ];
 
 export const appTabs: AppTabItem[] = [
-  { id: "chat", label: "Чат с ИИ" },
+  { id: "coach", label: "ИИ-план" },
   { id: "nutrition", label: "Питание" },
   { id: "workouts", label: "Тренировки" },
 ];

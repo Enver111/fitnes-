@@ -9,17 +9,17 @@ import {
 import { useAuthSession } from "@/features/auth/context/AuthSessionContext";
 import { LanguageToggle } from "@/shared/i18n/LanguageToggle";
 import { useLocale } from "@/shared/i18n/LocaleContext";
+import { ProfilePanel } from "../components/ProfilePanel";
 import { ThemeToggle } from "../components/ThemeToggle";
 import type { AppTab, ChatMessage } from "../types";
 
 export function AppShellPage() {
-  const { user, signOut } = useAuthSession();
+  const { signOut } = useAuthSession();
   const { t, locale } = useLocale();
   const navigate = useNavigate();
   const [tab, setTab] = useState<AppTab>("chat");
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<ChatMessage[]>([]);
-  const userEmail = user?.email ?? t("app.demoProfile");
   const wideTab = tab === "workouts" || tab === "nutrition";
 
   const navItems = [
@@ -142,25 +142,7 @@ export function AppShellPage() {
           </div>
         )}
 
-        {tab === "profile" && (
-          <div className="space-y-4">
-            <h1 className="text-2xl font-semibold">{t("app.profileTitle")}</h1>
-            <p className="text-sm text-fog">{t("app.profileHint")}</p>
-            <ul className="divide-y divide-line border border-line">
-              <li className="flex flex-col gap-1 px-4 py-4 sm:flex-row sm:items-center sm:justify-between">
-                <span className="text-fog">{t("app.profileEmail")}</span>
-                <span className="font-medium break-all">{userEmail}</span>
-              </li>
-            </ul>
-            <button
-              type="button"
-              onClick={handleSignOut}
-              className="rounded-sm border border-line px-4 py-2.5 text-sm text-fog transition hover:border-signal hover:text-mist"
-            >
-              {t("app.signOut")}
-            </button>
-          </div>
-        )}
+        {tab === "profile" && <ProfilePanel onSignOut={handleSignOut} />}
       </main>
     </div>
   );

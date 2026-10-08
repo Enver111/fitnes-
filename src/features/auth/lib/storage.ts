@@ -1,5 +1,9 @@
 import { USER_STORAGE_KEY } from "@/shared/constants/storage-keys";
-import type { StoredUser } from "../types";
+import { EMPTY_PROFILE, isMockAvatarId, type StoredUser } from "../types";
+
+function asString(value: unknown): string {
+  return typeof value === "string" ? value : "";
+}
 
 export function readStoredUser(): StoredUser | null {
   try {
@@ -14,11 +18,17 @@ export function readStoredUser(): StoredUser | null {
     ) {
       return null;
     }
-    const user = parsed as StoredUser;
+    const user = parsed as Partial<StoredUser>;
+    const avatarId = asString(user.avatarId);
     return {
-      email: user.email,
+      email: user.email!,
       signedInAt:
         typeof user.signedInAt === "number" ? user.signedInAt : Date.now(),
+      firstName: asString(user.firstName),
+      lastName: asString(user.lastName),
+      heightCm: asString(user.heightCm),
+      weightKg: asString(user.weightKg),
+      avatarId: isMockAvatarId(avatarId) ? avatarId : EMPTY_PROFILE.avatarId,
     };
   } catch {
     return null;

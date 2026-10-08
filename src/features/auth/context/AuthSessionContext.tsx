@@ -11,12 +11,13 @@ import {
   readStoredUser,
   writeStoredUser,
 } from "../lib/storage";
-import type { StoredUser } from "../types";
+import { EMPTY_PROFILE, type StoredUser, type UserProfile } from "../types";
 
 interface AuthSessionContextValue {
   user: StoredUser | null;
   isAuthenticated: boolean;
   signIn: (email: string) => void;
+  updateProfile: (profile: Partial<UserProfile> & { email?: string }) => void;
   signOut: () => void;
 }
 
@@ -30,10 +31,28 @@ export function AuthSessionProvider({ children }: AuthSessionProviderProps) {
   const [user, setUser] = useState<StoredUser | null>(() => readStoredUser());
 
   const signIn = useCallback((email: string) => {
-    const next: StoredUser = { email, signedInAt: Date.now() };
+    const existing = readStoredUser();
+    const next: StoredUser = {
+      ...EMPTY_PROFILE,
+      ...(existing?.email === email ? existing : null),
+      email,
+      signedInAt: Date.now(),
+    };
     writeStoredUser(next);
     setUser(next);
   }, []);
+
+  const updateProfile = useCallback(
+    (profile: Partial<UserProfile> & { email?: string }) => {
+      setUser((prev) => {
+        if (!prev) return prev;
+        const next: StoredUser = { ...prev, ...profile };
+        writeStoredUser(next);
+        return next;
+      });
+    },
+    [],
+  );
 
   const signOut = useCallback(() => {
     clearStoredUser();
@@ -45,9 +64,10 @@ export function AuthSessionProvider({ children }: AuthSessionProviderProps) {
       user,
       isAuthenticated: user !== null,
       signIn,
+      updateProfile,
       signOut,
     }),
-    [user, signIn, signOut],
+    [user, signIn, updateProfile, signOut],
   );
 
   return (

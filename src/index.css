@@ -194,3 +194,39 @@ body {
   background: color-mix(in srgb, var(--signal) 40%, transparent);
   color: var(--mist);
 }
+
+/* Brand scrollbar — used by ScrollArea / .scrollbar-signal */
+.scrollbar-signal {
+  scrollbar-width: thin;
+  scrollbar-color: var(--signal) transparent;
+}
+
+.scrollbar-signal::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.scrollbar-signal::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+.scrollbar-signal::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-signal::-webkit-scrollbar-thumb {
+  background-color: var(--signal);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.scrollbar-signal::-webkit-scrollbar-thumb:hover {
+  background-color: var(--signal-dim);
+}
+
+.scrollbar-signal::-webkit-scrollbar-corner {
+  background: transparent;
+}

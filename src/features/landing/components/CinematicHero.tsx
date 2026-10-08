@@ -1,8 +1,10 @@
-import { useEffect, useRef, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useLocale } from "@/shared/i18n/LocaleContext";
 import { cn } from "@/shared/lib/utils";
+import { HeartRateLoader } from "./HeartRateLoader";
+import { StrokeText } from "./StrokeText";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -173,6 +175,44 @@ const INJECTED_STYLES = `
       box-shadow: 0 0 0 1px rgba(255,255,255,0.05), inset 0 3px 8px rgba(0,0,0,0.9), inset 0 0 0 1px rgba(0,0,0,0.5);
   }
 
+  .btn-pill-dark {
+      background: linear-gradient(180deg, #2a2a2a 0%, #1a1a1a 100%);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow:
+          0 8px 20px rgba(0, 0, 0, 0.55),
+          0 2px 4px rgba(0, 0, 0, 0.4),
+          inset 0 1px 0 rgba(255, 255, 255, 0.14),
+          inset 0 -1px 0 rgba(0, 0, 0, 0.45);
+      transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease;
+  }
+  .btn-pill-dark:hover {
+      transform: translateY(-2px);
+      background: linear-gradient(180deg, #323232 0%, #222222 100%);
+      box-shadow:
+          0 12px 28px rgba(0, 0, 0, 0.6),
+          0 4px 8px rgba(0, 0, 0, 0.45),
+          inset 0 1px 0 rgba(255, 255, 255, 0.18),
+          inset 0 -1px 0 rgba(0, 0, 0, 0.45);
+  }
+  .btn-pill-dark:active {
+      transform: translateY(1px);
+      background: linear-gradient(180deg, #1f1f1f 0%, #141414 100%);
+      box-shadow:
+          0 2px 6px rgba(0, 0, 0, 0.5),
+          inset 0 2px 4px rgba(0, 0, 0, 0.6),
+          inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  }
+
+  .hero-copy-enter {
+      animation: heroCopyEnter 0.9s ease-out 2.2s both;
+  }
+
+  @keyframes heroCopyEnter {
+      from { opacity: 0; transform: translateY(14px); filter: blur(8px); }
+      to { opacity: 1; transform: translateY(0); filter: blur(0); }
+  }
+
   .progress-ring {
       transform: rotate(-90deg);
       transform-origin: center;
@@ -214,6 +254,19 @@ export function CinematicHero({
   const mainCardRef = useRef<HTMLDivElement>(null);
   const mockupRef = useRef<HTMLDivElement>(null);
   const requestRef = useRef(0);
+  const [strokeFontSize, setStrokeFontSize] = useState(48);
+
+  useEffect(() => {
+    const update = () => {
+      const width = window.innerWidth;
+      if (width >= 1024) setStrokeFontSize(72);
+      else if (width >= 768) setStrokeFontSize(52);
+      else setStrokeFontSize(34);
+    };
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -254,14 +307,6 @@ export function CinematicHero({
     const isMobile = window.innerWidth < 768;
 
     const ctx = gsap.context(() => {
-      gsap.set(".text-track", {
-        autoAlpha: 0,
-        y: 60,
-        scale: 0.85,
-        filter: "blur(20px)",
-        rotationX: -20,
-      });
-      gsap.set(".text-days", { autoAlpha: 1, clipPath: "inset(0 100% 0 0)" });
       gsap.set(".main-card", { y: window.innerHeight + 200, autoAlpha: 1 });
       gsap.set(
         [
@@ -278,23 +323,6 @@ export function CinematicHero({
         scale: 0.8,
         filter: "blur(30px)",
       });
-
-      const introTl = gsap.timeline({ delay: 0.3 });
-      introTl
-        .to(".text-track", {
-          duration: 1.8,
-          autoAlpha: 1,
-          y: 0,
-          scale: 1,
-          filter: "blur(0px)",
-          rotationX: 0,
-          ease: "expo.out",
-        })
-        .to(
-          ".text-days",
-          { duration: 1.4, clipPath: "inset(0 0% 0 0)", ease: "power4.inOut" },
-          "-=1.0",
-        );
 
       const scrollTl = gsap.timeline({
         scrollTrigger: {
@@ -466,13 +494,66 @@ export function CinematicHero({
         aria-hidden="true"
       />
 
-      <div className="hero-text-wrapper transform-style-3d absolute z-10 flex w-screen flex-col items-center justify-center px-4 text-center will-change-transform">
-        <h1 className="text-track gsap-reveal text-3d-matte mb-2 text-5xl font-bold tracking-tight md:text-7xl lg:text-[6rem]">
-          {resolvedTagline1}
+      <div className="hero-text-wrapper transform-style-3d absolute z-10 flex w-screen flex-col items-center justify-center px-6 text-center will-change-transform md:px-10">
+        <HeartRateLoader className="absolute top-1/2 left-1/2 z-0 w-[160vw] max-w-none -translate-x-1/2 -translate-y-1/2 opacity-45 md:w-[130vw] md:opacity-50 lg:w-[110vw] lg:opacity-55" />
+        <h1 className="relative z-10 mb-1 w-full max-w-5xl md:mb-2">
+          <StrokeText
+            text={resolvedTagline1}
+            strokeColor="var(--mist)"
+            fillColor="var(--mist)"
+            fontSize={strokeFontSize}
+            fontWeight={800}
+            letterSpacing={2}
+            strokeWidth={1.6}
+            drawDuration={3.8}
+            fillDelay={0.55}
+            stagger={0.09}
+            fillMode="wipe"
+            trigger="mount"
+          />
         </h1>
-        <h1 className="text-days gsap-reveal text-silver-matte text-5xl font-extrabold tracking-tighter md:text-7xl lg:text-[6rem]">
-          {resolvedTagline2}
+        <h1 className="relative z-10 mb-6 w-full max-w-6xl md:mb-8">
+          <StrokeText
+            text={resolvedTagline2}
+            strokeColor="var(--mist)"
+            fillColor="var(--mist)"
+            fontSize={strokeFontSize}
+            fontWeight={800}
+            letterSpacing={1}
+            strokeWidth={1.4}
+            drawDuration={3.5}
+            delay={1.4}
+            fillDelay={0.5}
+            stagger={0.08}
+            fillMode="wipe"
+            trigger="mount"
+          />
         </h1>
+        <p className="hero-copy-enter relative z-10 mx-auto mb-8 max-w-xl text-base font-light leading-relaxed text-signal md:mb-10 md:text-lg">
+          {t("hero.subtitle")}
+        </p>
+        <button
+          type="button"
+          onClick={onPrimaryCta}
+          aria-label={t("hero.demoAria")}
+          className="btn-pill-dark hero-copy-enter relative z-10 pointer-events-auto inline-flex items-center justify-center gap-2.5 rounded-full px-7 py-3.5 text-sm font-semibold tracking-wide focus:outline-none focus-visible:ring-2 focus-visible:ring-mist/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background md:px-8 md:py-4 md:text-base"
+        >
+          <svg
+            className="h-5 w-5 shrink-0"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
+            <polyline points="10 17 15 12 10 7" />
+            <line x1="15" y1="12" x2="3" y2="12" />
+          </svg>
+          <span>{t("hero.demoCta")}</span>
+        </button>
       </div>
 
       <div className="cta-wrapper gsap-reveal pointer-events-auto absolute z-10 flex w-screen flex-col items-center justify-center px-4 text-center will-change-transform">
@@ -636,7 +717,7 @@ export function CinematicHero({
 
                       <div className="space-y-3">
                         <div className="phone-widget widget-depth flex items-center rounded-2xl p-3">
-                          <div className="mr-3 flex h-10 w-10 items-center justify-center rounded-xl border border-blue-400/20 bg-lear-to-br from-blue-500/20 to-blue-600/5 shadow-inner">
+                          <div className="mr-3 flex h-10 w-10 items-center justify-center rounded-xl border border-blue-400/20 bg-linear-to-br from-blue-500/20 to-blue-600/5 shadow-inner">
                             <svg
                               className="h-4 w-4 text-blue-400 drop-shadow-md"
                               fill="none"
@@ -706,7 +787,7 @@ export function CinematicHero({
                 </div>
 
                 <div className="floating-badge floating-ui-badge absolute -right-3.75 bottom-12 z-30 flex items-center gap-3 rounded-xl p-3 lg:-right-20 lg:bottom-20 lg:gap-4 lg:rounded-2xl lg:p-4">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full border border-indigo-400/30 bg-liner-to-b from-indigo-500/20 to-indigo-900/10 shadow-inner lg:h-10 lg:w-10">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full border border-indigo-400/30 bg-linear-to-b from-indigo-500/20 to-indigo-900/10 shadow-inner lg:h-10 lg:w-10">
                     <span
                       className="text-base drop-shadow-lg lg:text-lg"
                       aria-hidden="true"

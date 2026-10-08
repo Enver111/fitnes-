@@ -30,6 +30,7 @@
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
   --animate-wave: wave 18s linear infinite;
+  --animate-heart-rate: heart-rate 5s linear infinite forwards;
 }
 
 @keyframes wave {
@@ -38,6 +39,15 @@
   }
   100% {
     transform: translateX(-50%);
+  }
+}
+
+@keyframes heart-rate {
+  from {
+    stroke-dashoffset: 814;
+  }
+  to {
+    stroke-dashoffset: -814;
   }
 }
 

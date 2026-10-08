@@ -17,8 +17,12 @@ const ru = {
     aria: "Переключить язык на английский",
   },
   hero: {
-    tagline1: "План под тебя,",
-    tagline2: "не шаблон.",
+    tagline1: "Идеальный день",
+    tagline2: "без лишних мыслей.",
+    subtitle:
+      "Наш ИИ создаст персональный распорядок дня и сбалансированный рацион на основе ваших целей. Управляйте временем и энергией в один клик.",
+    demoCta: "Попробовать демо бесплатно",
+    demoAria: "Попробовать демо бесплатно",
     cardHeading: "ИИ-коуч, переосмысленный.",
     cardDescription:
       " собирает рацион и тренировки под твою цель — по твоим данным, с сохранением плана и визуальным прогрессом.",
@@ -234,8 +238,12 @@ const en = {
     aria: "Switch language to Russian",
   },
   hero: {
-    tagline1: "A plan for you,",
-    tagline2: "not a template.",
+    tagline1: "A perfect day",
+    tagline2: "without overthinking.",
+    subtitle:
+      "Our AI builds a personal daily routine and a balanced meal plan around your goals. Manage time and energy in one click.",
+    demoCta: "Try the free demo",
+    demoAria: "Try the free demo",
     cardHeading: "AI coaching, reimagined.",
     cardDescription:
       " builds nutrition and workouts around your goal — from your intake, a saved plan, and visual progress.",

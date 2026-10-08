@@ -1,14 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useAuthModal } from "@/features/auth/context/AuthModalContext";
 import { AnimatedNav } from "../components/AnimatedNav";
 import { AnimatedWaveFooter } from "../components/AnimatedWaveFooter";
 import { CinematicHero } from "../components/CinematicHero";
-import { ComingSoonModal } from "../components/ComingSoonModal";
 import { landingNavItems } from "../config/nav";
 
 export function LandingPage() {
   const { openAuth } = useAuthModal();
-  const [comingSoonOpen, setComingSoonOpen] = useState(false);
 
   useEffect(() => {
     document.documentElement.classList.add("landing-no-scrollbar");
@@ -29,14 +27,10 @@ export function LandingPage() {
         }}
       />
       <CinematicHero
-        onPrimaryCta={() => setComingSoonOpen(true)}
+        onPrimaryCta={() => openAuth("login")}
         onSecondaryCta={() => openAuth("login")}
       />
       <AnimatedWaveFooter />
-      <ComingSoonModal
-        open={comingSoonOpen}
-        onClose={() => setComingSoonOpen(false)}
-      />
     </div>
   );
 }

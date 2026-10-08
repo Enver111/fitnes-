@@ -2,6 +2,10 @@ import { useEffect, useState, type FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { Apple, Dumbbell, LogOut, MessageCircle, User } from "lucide-react";
 import { NavBar } from "@/components/ui/tubelight-navbar";
+import {
+  DemoOne as WorkoutCalendar,
+  NutritionDemo as NutritionCalendar,
+} from "@/components/ui/visualize-booking-demo";
 import { useAuthSession } from "@/features/auth/context/AuthSessionContext";
 import { LanguageToggle } from "@/shared/i18n/LanguageToggle";
 import { useLocale } from "@/shared/i18n/LocaleContext";
@@ -16,6 +20,7 @@ export function AppShellPage() {
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const userEmail = user?.email ?? t("app.demoProfile");
+  const wideTab = tab === "workouts" || tab === "nutrition";
 
   const navItems = [
     { id: "chat" as const, name: t("app.tabChat"), url: "#chat", icon: MessageCircle },
@@ -34,18 +39,6 @@ export function AppShellPage() {
       { role: "ai", text: t("app.msg3") },
     ]);
   }, [locale, t]);
-
-  const nutritionItems = [
-    { title: t("app.calTitle"), value: t("app.calValue") },
-    { title: t("app.proteinTitle"), value: t("app.proteinValue") },
-    { title: t("app.dayTitle"), value: t("app.dayValue") },
-  ];
-
-  const workoutItems = [
-    { day: t("app.mon"), focus: t("app.monFocus") },
-    { day: t("app.wed"), focus: t("app.wedFocus") },
-    { day: t("app.fri"), focus: t("app.friFocus") },
-  ];
 
   function handleSignOut() {
     signOut();
@@ -95,7 +88,11 @@ export function AppShellPage() {
         }
       />
 
-      <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col px-4 py-6 pb-24 sm:px-8 sm:pb-6 sm:pt-24">
+      <main
+        className={`mx-auto flex w-full flex-1 flex-col px-4 py-6 pb-24 sm:px-8 sm:pb-6 sm:pt-24 ${
+          wideTab ? "max-w-5xl" : "max-w-3xl"
+        }`}
+      >
         {tab === "chat" && (
           <>
             <div className="flex-1 space-y-4 overflow-y-auto pb-4">
@@ -130,40 +127,18 @@ export function AppShellPage() {
         )}
 
         {tab === "nutrition" && (
-          <div className="space-y-4">
+          <div className="space-y-2">
             <h1 className="text-2xl font-semibold">{t("app.nutritionTitle")}</h1>
             <p className="text-sm text-fog">{t("app.nutritionHint")}</p>
-            <ul className="divide-y divide-line border border-line">
-              {nutritionItems.map((item) => (
-                <li
-                  key={item.title}
-                  className="flex flex-col gap-1 px-4 py-4 sm:flex-row sm:justify-between"
-                >
-                  <span className="text-fog">{item.title}</span>
-                  <span className="font-medium">{item.value}</span>
-                </li>
-              ))}
-            </ul>
+            <NutritionCalendar />
           </div>
         )}
 
         {tab === "workouts" && (
-          <div className="space-y-4">
+          <div className="space-y-2">
             <h1 className="text-2xl font-semibold">{t("app.workoutsTitle")}</h1>
             <p className="text-sm text-fog">{t("app.workoutsHint")}</p>
-            <ul className="space-y-3">
-              {workoutItems.map((w) => (
-                <li
-                  key={w.day}
-                  className="border border-line bg-ink-soft px-4 py-4"
-                >
-                  <span className="font-display text-lg tracking-wider text-signal">
-                    {w.day}
-                  </span>
-                  <p className="mt-1 text-sm md:text-base">{w.focus}</p>
-                </li>
-              ))}
-            </ul>
+            <WorkoutCalendar />
           </div>
         )}
 

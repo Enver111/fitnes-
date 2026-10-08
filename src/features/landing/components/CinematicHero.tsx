@@ -465,9 +465,7 @@ export function CinematicHero({
       const ctaLift = (footerH + gap) / 2;
       const availableForCta = Math.max(viewportH - footerH - gap, 120);
       const ctaScale =
-        ctaH > availableForCta
-          ? Math.max(0.62, availableForCta / ctaH)
-          : 1;
+        ctaH > availableForCta ? Math.max(0.62, availableForCta / ctaH) : 1;
 
       const scrollTl = gsap.timeline({
         scrollTrigger: {
@@ -920,9 +918,9 @@ export function CinematicHero({
             fontWeight={800}
             letterSpacing={2}
             strokeWidth={1.6}
-            drawDuration={3.8}
-            fillDelay={0.55}
-            stagger={0.09}
+            drawDuration={2.8}
+            fillDelay={0.1}
+            stagger={0.25}
             fillMode="wipe"
             trigger="mount"
           />
@@ -936,10 +934,10 @@ export function CinematicHero({
             fontWeight={800}
             letterSpacing={1}
             strokeWidth={1.4}
-            drawDuration={3.5}
+            drawDuration={2.8}
             delay={1.4}
             fillDelay={0.5}
-            stagger={0.08}
+            stagger={0.2}
             fillMode="wipe"
             trigger="mount"
           />

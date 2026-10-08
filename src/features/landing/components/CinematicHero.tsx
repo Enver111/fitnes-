@@ -207,7 +207,6 @@ const INJECTED_STYLES = `
       box-shadow: 0 0 0 1px rgba(0,0,0,0.05), 0 2px 4px rgba(0,0,0,0.1), 0 12px 24px -4px rgba(0,0,0,0.3), inset 0 1px 1px rgba(255,255,255,1), inset 0 -3px 6px rgba(0,0,0,0.06);
   }
   .btn-modern-light:hover {
-      transform: translateY(-3px);
       box-shadow: 0 0 0 1px rgba(0,0,0,0.05), 0 6px 12px -2px rgba(0,0,0,0.15), 0 20px 32px -6px rgba(0,0,0,0.4), inset 0 1px 1px rgba(255,255,255,1), inset 0 -3px 6px rgba(0,0,0,0.06);
   }
   .btn-modern-light:active {
@@ -221,7 +220,6 @@ const INJECTED_STYLES = `
       box-shadow: 0 0 0 1px rgba(255,255,255,0.1), 0 2px 4px rgba(0,0,0,0.6), 0 12px 24px -4px rgba(0,0,0,0.9), inset 0 1px 1px rgba(255,255,255,0.15), inset 0 -3px 6px rgba(0,0,0,0.8);
   }
   .btn-modern-dark:hover {
-      transform: translateY(-3px);
       background: linear-gradient(180deg, #3F3F46 0%, #27272A 100%);
       box-shadow: 0 0 0 1px rgba(255,255,255,0.15), 0 6px 12px -2px rgba(0,0,0,0.7), 0 20px 32px -6px rgba(0,0,0,1), inset 0 1px 1px rgba(255,255,255,0.2), inset 0 -3px 6px rgba(0,0,0,0.8);
   }
@@ -243,7 +241,6 @@ const INJECTED_STYLES = `
       transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease;
   }
   .btn-pill-dark:hover {
-      transform: translateY(-2px);
       background: linear-gradient(180deg, #323232 0%, #222222 100%);
       box-shadow:
           0 12px 28px rgba(0, 0, 0, 0.6),
@@ -952,9 +949,9 @@ export function CinematicHero({
         </p>
         <button
           type="button"
-          onClick={onPrimaryCta}
+          onClick={onSecondaryCta}
           aria-label={t("hero.demoAria")}
-          className="btn-pill-dark hero-copy-enter relative z-10 pointer-events-auto inline-flex items-center justify-center gap-2.5 rounded-full px-7 py-3.5 text-sm font-semibold tracking-wide focus:outline-none focus-visible:ring-2 focus-visible:ring-mist/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background md:px-8 md:py-4 md:text-base"
+          className="btn-pill-dark hero-copy-enter relative z-10 pointer-events-auto inline-flex items-center justify-center gap-2.5 rounded-[1.25rem] px-7 py-3.5 text-sm font-semibold tracking-wide focus:outline-none focus-visible:ring-2 focus-visible:ring-mist/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background md:px-8 md:py-4 md:text-base"
         >
           <svg
             className="h-5 w-5 shrink-0"

@@ -1,11 +1,13 @@
+const assetBase = import.meta.env.BASE_URL;
+
 export const APP_ICONS = {
-  dark: "/app-icon-dark.png",
-  light: "/app-icon-light.png",
+  dark: `${assetBase}app-icon-dark.png`,
+  light: `${assetBase}app-icon-light.png`,
 } as const;
 
 export const FAVICONS = {
-  dark: "/favicon-dark.svg",
-  light: "/favicon-light.svg",
+  dark: `${assetBase}favicon-dark.svg`,
+  light: `${assetBase}favicon-light.svg`,
 } as const;
 
 export const THEME_COLORS = {

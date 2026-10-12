@@ -2,8 +2,8 @@
 <html lang="ru">
   <head>
     <meta charset="UTF-8" />
-    <link id="app-favicon" rel="icon" type="image/svg+xml" href="/favicon-dark.svg" />
-    <link id="app-touch-icon" rel="apple-touch-icon" href="/app-icon-dark.png" />
+    <link id="app-favicon" rel="icon" type="image/svg+xml" href="%BASE_URL%favicon-dark.svg" />
+    <link id="app-touch-icon" rel="apple-touch-icon" href="%BASE_URL%app-icon-dark.png" />
     <meta id="app-theme-color" name="theme-color" content="#0D3D2E" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -32,13 +32,17 @@
           if (favicon) {
             favicon.setAttribute(
               'href',
-              theme === 'light' ? '/favicon-light.svg' : '/favicon-dark.svg',
+              theme === 'light'
+                ? '%BASE_URL%favicon-light.svg'
+                : '%BASE_URL%favicon-dark.svg',
             )
           }
           if (touch) {
             touch.setAttribute(
               'href',
-              theme === 'light' ? '/app-icon-light.png' : '/app-icon-dark.png',
+              theme === 'light'
+                ? '%BASE_URL%app-icon-light.png'
+                : '%BASE_URL%app-icon-dark.png',
             )
           }
           if (themeColor) {

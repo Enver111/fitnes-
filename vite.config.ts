@@ -7,6 +7,8 @@ import { defineConfig } from "vite";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
+  // GitHub Pages project site: https://enver111.github.io/fitnes-/
+  base: "/fitnes-/",
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {

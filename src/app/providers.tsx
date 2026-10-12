@@ -13,7 +13,7 @@ export function AppProviders({ children }: AppProvidersProps) {
   return (
     <ThemeProvider>
       <LocaleProvider>
-        <BrowserRouter>
+        <BrowserRouter basename={import.meta.env.BASE_URL.replace(/\/$/, "")}>
           <AuthSessionProvider>
             <AuthModalProvider>{children}</AuthModalProvider>
           </AuthSessionProvider>
